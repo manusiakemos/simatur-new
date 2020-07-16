@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
-
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Models\Kunjungan
@@ -31,6 +30,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Kunjungan withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Kunjungan withoutTrashed()
  * @mixin \Eloquent
+ * @property int|null $tower_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Kunjungan whereTowerId($value)
  */
 class Kunjungan extends Model
 {
@@ -40,11 +41,24 @@ class Kunjungan extends Model
     protected $table = "tb_kunjungan";
 
     public function getLinksAttribute()
-{
-    return generate_links_api("kunjungan", $this->attributes[$this->primaryKey]);
-}
+    {
+        return generate_links_api("kunjungan", $this->attributes[$this->primaryKey]);
+    }
+
+    public function getKunjunganGambarAttribute($value)
+    {
+        return asset("uploads/images/$value");
+    }
+
+    public function scopeJoinAll($query)
+    {
+        return $query->leftJoin("tb_tower", "tb_kunjungan.tower_id", "=", "tb_tower.tower_id")
+            ->join("tb_kelurahan", "tb_tower.kelurahan_id", "=", "tb_kelurahan.kelurahan_id")
+            ->join("tb_kecamatan", "tb_kelurahan.kecamatan_id", "=", "tb_kecamatan.kecamatan_id")
+            ->join("tb_provider", "tb_tower.provider_id", "=", "tb_provider.provider_id");
+    }
 
     protected $appends = ['links'];
 
-    
+
 }

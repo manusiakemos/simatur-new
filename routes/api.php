@@ -22,11 +22,23 @@ Route::middleware(['auth:airlock'])->group(function(){
     /* my generated route */
     Route::apiResource('user', 'UserController');
     Route::apiResource('kategori', 'KategoriController');
+
+    Route::apiResource('tower', 'TowerController');
+    Route::apiResource('provider', 'ProviderController');
+    Route::apiResource('towerprovider', 'TowerProviderController');
+    Route::apiResource('kunjungan', 'KunjunganController');
 });
 
-Route::apiResource('crudgenerator', 'CrudGeneratorController');
+//Route::apiResource('crudgenerator', 'CrudGeneratorController');
 
- Route::apiResource('tower', 'TowerController');
- Route::apiResource('provider', 'ProviderController');
- Route::apiResource('towerprovider', 'TowerProviderController');
- Route::apiResource('kunjungan', 'KunjunganController');
+
+Route::any('chart/counterup', 'ChartController@counterup');
+Route::any('chart/provider', 'ChartController@provider');
+Route::any('chart/towerpertahun', 'ChartController@towerPertahun');
+Route::any('chart/kecamatan', 'ChartController@kecamatan');
+Route::any('chart/kelurahan', 'ChartController@kelurahan');
+Route::any('chart/tipe_koneksi', 'ChartController@tipeKoneksi');
+
+Route::any('map/towerprovider', 'MapController@towerProvider');
+
+Route::any('mobile', 'MobileController');

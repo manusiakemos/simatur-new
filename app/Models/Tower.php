@@ -50,6 +50,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Tower withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Tower withoutTrashed()
  * @mixin \Eloquent
+ * @property string|null $tower_kode
+ * @property-read mixed $tower_label
+ * @property-read mixed $tower_map
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Tower joinAll()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Tower whereTowerKode($value)
  */
 class Tower extends Model
 {
@@ -58,7 +63,7 @@ class Tower extends Model
     protected $primaryKey = "tower_id";
     protected $table = "tb_tower";
 
-    public function scopeJoinall($query)
+    public function scopeJoinAll($query)
     {
         return $query->join("tb_kelurahan", "tb_tower.kelurahan_id", "=", "tb_kelurahan.kelurahan_id")
             ->join("tb_kecamatan", "tb_kelurahan.kecamatan_id", "=", "tb_kecamatan.kecamatan_id")
@@ -77,7 +82,7 @@ class Tower extends Model
 
     public function kelurahan()
     {
-        return $this->belongsTo(Kelurahan::class, "kelurahan_id")->withTrashed();
+        return $this->belongsTo(Kelurahan::class, "kelurahan_id");
     }
 
     public function getTowerMapAttribute()

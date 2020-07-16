@@ -26,6 +26,15 @@
                         Generate PDF
                     </b-btn>
                 </div>
+
+                <div class="mb-3 mt-3">
+                    <select-ajax api-url="/api/select/provider"
+                                 v-model="filter.provider_id"
+                                 placeholder-text="Filter Provider"
+                                 option-text="provider_name"
+                                 option-value="provider_id"/>
+                </div>
+
                 <div v-if="data_print" id="print" class="d-none d-print-block">
                     <h4 class="text-center text-capitalize">Report tower</h4>
                     <table class="table table-bordered">
@@ -245,8 +254,20 @@
         mounted() {
             this.setDt();
         },
+        watch: {
+            "filter.provider_id" : function(value){
+                this.$refs.dt.destroy();
+                this.configDt.ajax.data.filter_provider = value;
+                this.$nextTick(() => {
+                    this.$refs.dt.initDt();
+                })
+            }
+        },
         data: function () {
             return {
+                filter: {
+                    provider_id:""
+                },
                 title: 'Tower Datatable',
                 action: 'store',
                 show_modal: false,
@@ -282,6 +303,9 @@
                     ajax: {
                         type: "GET",
                         url: "/api/tower",
+                        data: {
+                            filter_provider: null
+                        }
                     },
                     processing: true,
                     serverSide: true,
@@ -364,7 +388,7 @@
         },
         methods: {
             async generatePdf() {
-                var res = await this.axios.get('/api/tower?print=true');
+                var res = await this.axios.get(`/api/tower?print=true&filter_provider=${this.filter.provider_id}`);
                 this.data_print = res.data;
                 this.$nextTick(() => {
                     this.printPdf('landscape')

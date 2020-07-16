@@ -6,7 +6,7 @@
                     <li class="breadcrumb-item">
                         <router-link :to="{name:'Dashboard'}">Dashboard</router-link>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">kunjungan</li>
+                    <li class="breadcrumb-item active" aria-current="page">Kunjungan</li>
                 </ol>
             </nav>
             <b-card class="shadow-sm" border-variant="light">
@@ -26,6 +26,13 @@
                         Generate PDF
                     </b-btn>
                 </div>
+
+                <div class="mt-3 mb-3">
+                    <b-form-group>
+                        <my-date-picker placeholder="Tahun" type="year" v-model="tahun" format="YYYY"></my-date-picker>
+                    </b-form-group>
+                </div>
+
                 <div v-if="data_print" id="print" class="d-none d-print-block">
                     <h4 class="text-center text-capitalize">Report kunjungan</h4>
                     <table class="table table-bordered">
@@ -138,6 +145,15 @@
         mounted() {
             this.setDt();
         },
+        watch:{
+            tahun(value){
+                this.$refs.dt.destroy();
+                this.configDt.ajax.data.filter_tahun = value;
+                this.$nextTick(() => {
+                    this.$refs.dt.initDt();
+                })
+            }
+        },
         data: function () {
             return {
                 title: 'Kunjungan Datatable',
@@ -161,11 +177,14 @@
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
-                upload: false,
+                upload: true,
                 configDt: {
                     ajax: {
                         type: "GET",
                         url: "/api/kunjungan",
+                        data:{
+                            filter_tahun:""
+                        }
                     },
                     processing: true,
                     serverSide: true,
@@ -204,10 +223,13 @@
                             data: "kunjungan_tanggal",
                             class: "auto"
                         },
-                        {name: "tower_id", print: true, title: "Tower", data: "tower_id", class: "auto"},
+                        {name: "tb_tower.tower_kode", print: true, title: "Tower", data: "tower_kode", class: "auto"},
+                        {name: "tb_provider.provider_name", print: true, title: "Provider", data: "provider_name", class: "auto"},
+                        {name: "tb_kecamatan.kecamatan_nama", print: true, title: "Kecamatan", data: "kecamatan_nama", class: "auto"},
+                        {name: "tb_kelurahan.kelurahan_nama", print: true, title: "Desa/Kelurahan", data: "kelurahan_nama", class: "auto"},
                         {
                             name: "kunjungan_gambar",
-                            print: true,
+                            print: false,
                             title: "Gambar",
                             data: "kunjungan_gambar",
                             class: "auto"
@@ -216,11 +238,12 @@
                     ]
                 },
                 file: null,
+                tahun: null,
             }
         },
         methods: {
             async generatePdf() {
-                var res = await this.axios.get('/api/kunjungan?print=true');
+                var res = await this.axios.get(`/api/kunjungan?print=true&filter_tahun=${this.tahun}`);
                 this.data_print = res.data;
                 this.$nextTick(() => {
                     this.printPdf('portrait')

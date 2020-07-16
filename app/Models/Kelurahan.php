@@ -33,7 +33,7 @@ class Kelurahan extends Model
 {
     protected $table = "tb_kelurahan";
 
-    protected $primaryKey = "Kelurahan_id";
+    protected $primaryKey = "kelurahan_id";
 
     protected static function booted()
     {

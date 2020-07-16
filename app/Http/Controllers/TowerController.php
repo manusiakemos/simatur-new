@@ -12,9 +12,13 @@ use Yajra\DataTables\DataTables;
 
 class TowerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return DataTables::of(Tower::select(['tb_tower.*', 'kecamatan_nama', 'kelurahan_nama', 'provider_name'])->joinall())
+        $data =Tower::select(['tb_tower.*', 'kecamatan_nama', 'kelurahan_nama', 'provider_name'])->joinall();
+        if(isset($request->filter_provider)){
+            $data = $data->where('tb_tower.provider_id', $request->filter_provider);
+        }
+        return DataTables::of($data)
             ->addColumn('action', function (Tower $value) {
                 return view('actions.tower', [
                     'value' => $value

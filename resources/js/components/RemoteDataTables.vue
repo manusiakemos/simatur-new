@@ -36,6 +36,9 @@
             refresh() {
                 var me = this;
                 me.dataTablesVue.ajax.reload();
+            },
+            destroy(){
+                this.dataTablesVue.clear().destroy();
             }
         }
     };

@@ -8,7 +8,7 @@ function my_upload_file($file, $path="uploads/images")
     $ext = $file->getClientOriginalExtension();
     $filename = Str::random().'.'.$ext;
     $file->move($path, $filename);
-    return asset($path."/".$filename);
+    return $filename;
 }
 
 function base64_to_image($data, $path)
@@ -97,6 +97,11 @@ function waktu($timestamps)
 {
     $dt = Carbon::parse($timestamps);
     return $dt->hour . ":" . $dt->minute;
+}
+
+function makeHref($url)
+{
+    return "<a href='$url'>$url</a>";
 }
 
 function tanggal($timestamps, $separator)
