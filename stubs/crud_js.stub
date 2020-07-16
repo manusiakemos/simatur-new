@@ -1,0 +1,144 @@
+import MyDataTables from '../../components/MyDataTables.vue';
+export default {
+components:{
+'datatables' : MyDataTables,
+},
+created() {
+this.data2 = this.data;
+},
+mounted() {
+this.setDt();
+},
+watch: {
+showModal: function (value) {
+value == false ? this.errors = [] : '';
+}
+},
+data: function () {
+return {
+title:'Users Datatable',
+action: 'store',
+showModal: false,
+modal_title: 'Tambah User',
+data: {
+data: {
+password: "",
+password_confirmation: "",
+username: "",
+role: "",
+},
+links: {
+store: "/api/user",
+update: "",
+destroy: ""
+}
+},
+data2: null,
+errors: [],
+items: [
+{
+text: 'Dashboard',
+href: '#mainapp/dashboard'
+},
+{
+text: 'Users Datatable',
+active: true
+}
+],
+configDt: {
+url: "/api/user",
+columns: [
+{title: "Username", data: "username", class: "all"},
+{title: "Role", data: "role", class: "auto"},
+{title: "Action", data: "action", class: "text-center w-25 all"}
+]
+},
+}
+},
+methods:{
+setDt() {
+var vm = this;
+$(document).find("#dt-user").on("click", ".btn-edit", function (e) {
+e.preventDefault();
+var url = $(this).attr('href');
+vm.edit(url);
+}).on("click", ".btn-destroy", function (e) {
+e.preventDefault();
+var url = $(this).attr('href');
+vm.destroy(url);
+})
+},
+refreshDt() {
+this.$refs.dt.refresh();
+},
+create() {
+this.data = _.cloneDeep(this.data2);
+this.action = 'store';
+this.modal_title = 'Tambah User';
+this.showModal = true;
+},
+edit(url) {
+this.modal_title = 'Edit User';
+this.action = 'update';
+this.axios.get(url).then(res => {
+this.data = _.cloneDeep(res.data);
+});
+this.showModal = true;
+},
+store() {
+this.axios.post('/api/user', this.data.data).then(res => {
+if (res.data.status) {
+this.$message({
+message: res.data.message,
+type: res.data.text
+});
+this.showModal = false;
+this.refreshDt();
+}
+}).catch(error => {
+if (error.response) {
+this.errors = error.response.data.errors;
+}
+});
+},
+update() {
+this.axios.put(this.data.links.update, this.data.data).then(res => {
+if (res.data.status) {
+this.$message({
+message: res.data.message,
+type: res.data.text
+});
+this.showModal = false;
+this.refreshDt();
+}
+}).catch(error => {
+if (error.response) {
+this.errors = error.response.data.errors;
+}
+});
+},
+destroy(url) {
+this.$confirm('Apakah Kamu Yakin?', 'Warning', {
+confirmButtonText: 'Ya',
+cancelButtonText: 'Tidak',
+type: 'warning'
+}).then(() => {
+this.axios.delete(url).then(res => {
+this.$message({
+type: res.data.text,
+message: res.data.message
+});
+if (res.data.status) {
+this.refreshDt();
+}
+})
+}).catch(() => {
+this.$message({
+type: 'info',
+message: 'Data batal dihapus'
+});
+this.refreshDt();
+});
+}
+}
+}

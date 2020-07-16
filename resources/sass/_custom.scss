@@ -1,0 +1,136 @@
+/*body{
+    overflow: hidden !important;
+}*/
+hr.dashed {
+    border-top: 2px dashed #999;
+}
+
+hr.dotted {
+    border-top: 2px dotted #999;
+}
+
+hr.solid {
+    border-top: 2px solid #999;
+}
+
+hr.hr-text {
+    position: relative;
+    border: none;
+    height: 1px;
+    background: #999;
+}
+
+hr.hr-text::before {
+    content: attr(data-content);
+    display: inline-block;
+    background: #fff;
+    font-weight: bold;
+    font-size: 0.85rem;
+    color: #999;
+    border-radius: 30rem;
+    padding: 0.2rem 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.font-size-larger {
+    font-size: 1.5rem;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.dropdown-menu.dropdown-menu-right.show:focus {
+    outline: none !important;
+}
+
+.main-content {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 15px;
+    margin-bottom: 10px;
+    position: relative;
+    transition: all 1s ease;
+}
+
+.main-content.margin-sidebar {
+    padding-left: 260px;
+    padding-right: 10px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+@media (max-width: 1024px) {
+    .main-content {
+        padding-left: 10px;
+        padding-right: 10px;
+        width: 100% !important;
+    }
+
+    .main-content.margin-sidebar {
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 15px;
+        //width: 100%;
+        position: relative;
+
+    }
+}
+
+.navbar {
+    height: 55px;
+    background-color: $white;
+    //z-index:100;
+}
+
+.card {
+    border-radius: 30px !important;
+}
+
+.breadcrumb {
+    border-radius: 30px !important;
+    background: $white !important;
+}
+
+.form-control,
+.input-group-text,
+.custom-select,
+.custom-file-label {
+    background-color: #fdfdff !important;
+    border-color: #e4e6fc !important;
+}
+
+.form-control:focus,
+.input-group-text:focus,
+.custom-select:focus,
+.custom-file-label:focus {
+    background-color: #fefeff !important;
+}
+
+.input-group-text,
+select.form-control:not([size]):not([multiple]),
+.form-control:not(.form-control-sm):not(.form-control-lg) {
+    font-size: 14px;
+    padding: 10px 15px;
+    height: 42px;
+}
+
+.dg-btn-cancel{
+    background: $primary !important;
+}
+
+.dg-btn--ok {
+    color: $white !important;
+    background-color: $primary !important;
+    border-color: $primary !important;
+}
+
+.border-none{
+    border: none !important;
+}
+
+

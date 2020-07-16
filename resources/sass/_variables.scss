@@ -1,0 +1,41 @@
+// Body
+$body-bg: #F4F6F9;
+
+// Typography
+$font-family-sans-serif: 'Lato', sans-serif;
+$font-family-bold: 'Open Sans', sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+// Colors
+$white: #FFFFFF;
+$blue: #3490dc;
+$indigo: #6574cd;
+$purple: #9561e2;
+$pink: #f66d9b;
+$red: #e3342f;
+$orange: #f6993f;
+$yellow: #ffed4a;
+$green: #38c172;
+$teal: #4dc0b5;
+$cyan: #6cb2eb;
+$secondary: #5c60ff;
+$primary: #547fe9;
+
+$dark: #0d0d1d;
+$sidebar: $white;
+$textcolor: #ACB1B5;
+
+.dg-btn--ok {
+    border-color: $primary;
+}
+
+.dg-btn-loader .dg-circle {
+    background-color: $primary;
+}
+
+$default-color: $primary;
+$primary-color: $primary;
+
+@import '~vue2-datepicker/scss/index.scss';
+@import '~vue-search-select/dist/VueSearchSelect.css';

@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+use Illuminate\Database\Eloquent\Model;
+
+class {{ classNamePlural }} extends Model
+{
+    use SoftDeletes;
+
+    protected $primaryKey = "{{ primaryKey }}";
+    protected $table = "{{ tableName }}";
+
+    public function getLinksAttribute()
+{
+    return generate_links_api("{{ classNameSingular }}", $this->attributes[$this->primaryKey]);
+}
+
+    protected $appends = ['links'];
+
+    {{ functions }}
+}

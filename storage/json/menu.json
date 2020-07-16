@@ -1,0 +1,37 @@
+[
+    {
+        "href": "/mainapp/dashboard",
+        "title": "Home",
+        "icon": "fa fa-chart-line"
+    },
+    {
+        "href": "/mainapp/crud",
+        "title": "Crud",
+        "icon": "fa fa-chart-line"
+    },
+    {
+        "href": "/mainapp/provider",
+        "title": "Provider",
+        "icon": "fa fa-list-alt"
+    },
+    {
+        "href": "/mainapp/tower",
+        "title": "Tower",
+        "icon": "fa fa-list-alt"
+    },
+    {
+        "href": "/mainapp/kunjungan",
+        "title": "Kunjungan",
+        "icon": "fa fa-list-alt"
+    },
+    {
+        "title": "Admin Area",
+        "icon": "fa fa-cog",
+        "child": [
+            {
+                "href": "/mainapp/user",
+                "title": "User Management"
+            }
+        ]
+    }
+]

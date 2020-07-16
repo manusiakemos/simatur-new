@@ -1,0 +1,35 @@
+.pages{
+    overflow: hidden;
+    min-height: 100vh;
+    min-width: 100vw;
+}
+
+@media (min-width: 1100px) {
+    .pages{
+        background-position: center center;
+        background: url("../images/bg.jpeg") no-repeat;
+        background-size: cover;
+        background-position-x:center;
+    }
+}
+
+.center-content {
+    height: 100%;
+    width: 100%;
+    //position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+}
+
+.login-bg{
+    background: url("../images/login_bg.svg") no-repeat;
+    background-position: center center;
+    //background-size: cover;
+    height:1000px;
+}
+
+.h100vh{
+    height: 100vh;
+}

@@ -1,0 +1,67 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\{{ classNamePlural }};
+//use App\Http\Resources\{{ className }}Resource;
+use Yajra\DataTables\DataTables;
+
+class {{ className }}Controller extends Controller
+{
+    public function index()
+    {
+    return DataTables::of({{ classNamePlural }}::query())
+        ->addColumn('action', function ({{ classNamePlural }} $value) {
+            return view('actions.{{ classNameSnake }}',[
+                'value' => $value
+            ]);
+        })
+        ->toJson();
+    }
+
+    public function store(Request $request)
+    {
+    $db = new {{ classNamePlural }};
+    $save = $this->handleRequest($db, $request);
+    return $save
+        ? responseJson('{{ className }} Berhasi Ditambahkan')
+        : responseJson('{{ className }} Gagal Ditambahkan');
+    }
+
+
+    public function show($id)
+    {
+        $db = {{ classNamePlural }}::find($id);
+//        return new {{ className }}Resource($db);
+        return $db;
+    }
+
+    public function update(Request $request, $id)
+    {
+        $db = {{ classNamePlural }}::find($id);
+    $save = $this->handleRequest($db, $request);
+    return $save
+        ? responseJson('{{ className }} Berhasi Diupdate')
+        : responseJson('{{ className }} Gagal Diupdate');
+    }
+
+
+    public function destroy($id)
+    {
+        $db = {{ classNamePlural }}::find($id);
+        $save = $db->delete();
+
+        return $save
+            ? responseJson('{{ className }} Berhasi Dihapus')
+            : responseJson('{{ className }} Gagal Dihapus');
+    }
+
+    private function handleRequest($db, $request)
+    {
+        {{ validasi }}
+        {{ handleRequest }}
+        return $db->save();
+    }
+}
