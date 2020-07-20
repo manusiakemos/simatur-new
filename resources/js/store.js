@@ -10,6 +10,7 @@ const vuexLocal = new VuexPersistence({
 Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
+        accessToken:"pk.eyJ1IjoibWFudXNpYWtlbW9zIiwiYSI6ImNrN3l4MTJuYTAwZGEzbXBiNzUyaTM1N3EifQ.KP9R6VRtfvsoXZgcaTYacw",
         appName:"SIMATUR",
         refresh: 1,
         showSidebar:true,

@@ -11,7 +11,12 @@
     },
     {
         "href": "/mainapp/provider",
-        "title": "Provider",
+        "title": "Provider Operator",
+        "icon": "fa fa-list-alt"
+    },
+    {
+        "href": "/mainapp/zona",
+        "title": "Zona",
         "icon": "fa fa-list-alt"
     },
     {

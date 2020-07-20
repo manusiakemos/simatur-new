@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @mixin \Eloquent
  * @property int|null $tower_id
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Kunjungan whereTowerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Kunjungan joinAll()
  */
 class Kunjungan extends Model
 {

@@ -14,15 +14,16 @@ class CreateProviderTable extends Migration
     public function up()
     {
         Schema::create('tb_provider', function (Blueprint $table) {
-            $table->increments('provider_id' ,11)
-                        ;
-                $table->string('provider_name')
+            $table->increments('provider_id', 11);
+            $table->string('provider_name')
                 ->nullable();
-                $table->string('provider_color')
+            $table->string('provider_type')
                 ->nullable();
-                $table->boolean('provider_operator')
+            $table->string('provider_color')
                 ->nullable();
-    
+            $table->boolean('provider_operator')
+                ->nullable();
+
             $table->softDeletes();
             $table->timestamps();
         });

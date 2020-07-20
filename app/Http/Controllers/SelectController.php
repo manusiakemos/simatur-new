@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use App\Models\Provider;
 use App\Models\Tower;
@@ -16,12 +17,29 @@ class SelectController extends Controller
                 return Tower::joinall()->get();
                 break;
             case 'provider':
-                return Provider::all();
+                return Provider::where('provider_type', 'provider')
+                    ->orWhere('provider_type', 'provider_operator')
+                    ->get();
+                break;
+            case 'operator':
+                return Provider::where('provider_type', 'operator')
+                    ->orWhere('provider_type', 'provider_operator')
+                    ->get();
+                break;
+            case 'provider_operator':
+                return Provider::where('provider_type', 'provider_operator')->get();
+                break;
+            case 'provider_pemilik':
+                return Provider::where('provider_type', 'provider')
+                    ->orWhere('provider_type', 'provider_operator')
+                    ->get();
                 break;
             case 'kelurahan':
                 return Kelurahan::all();
                 break;
-
+            case 'kecamatan':
+                return Kecamatan::all();
+                break;
             case 'tower_status':
                 return [
                     [
@@ -58,9 +76,7 @@ class SelectController extends Controller
                     ]
                 ];
                 break;
-
             case 'tower_size_type':
-//                'makrocell','mikrocell','rooftop'
                 return [
                     [
                         'text' => 'makrocell',
@@ -76,8 +92,47 @@ class SelectController extends Controller
                     ]
                 ];
                 break;
-
-                case 'tower_owner_type':
+            case 'provider_type':
+                return [
+                    [
+                        'text' => 'Provider',
+                        'value' => 'provider',
+                    ],
+                    [
+                        'text' => 'Operator',
+                        'value' => 'operator',
+                    ],
+                    [
+                        'text' => 'Provider Operator',
+                        'value' => 'provider_operator',
+                    ]
+                ];
+                break;
+            case 'map_type':
+                return [
+                    [
+                        'text' => 'Provider (Pemilik Tower)',
+                        'value' => 'provider',
+                    ],
+                    [
+                        'text' => 'Operator (Pengguna Tower)',
+                        'value' => 'operator',
+                    ],
+                ];
+                break;
+            case 'zona_type':
+                return [
+                    [
+                        'text' => 'Sub Urban',
+                        'value' => 'sub_urban',
+                    ],
+                    [
+                        'text' => 'Rural',
+                        'value' => 'rural',
+                    ],
+                ];
+                break;
+            case 'tower_owner_type':
 //                'provider','pemda','kominfo'
                 return [
                     [

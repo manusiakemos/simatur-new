@@ -81,16 +81,16 @@
                     ></b-form-input>
                 </b-form-group>
                 <b-form-group
-                    label="Provider Jaringan"
-                    label-for="provider_operator"
-                    :invalid-feedback="this.errors && this.errors.provider_operator ? this.errors.provider_operator.join() : ''"
-                    :state="this.errors && this.errors.provider_operator ? false : true"
+                    label="Provider Tipe"
+                    label-for="provider_type"
+                    :invalid-feedback="this.errors && this.errors.provider_type ? this.errors.provider_type.join() : ''"
+                    :state="this.errors && this.errors.provider_type ? false : true"
                 >
-                    <radio-ajax v-model="data.provider_operator"
-                                api-url="/api/select/boolean"
+                    <select-ajax v-model="data.provider_type"
+                                api-url="/api/select/provider_type"
                                 option-text="text"
                                 option-value="value">
-                    </radio-ajax>
+                    </select-ajax>
                 </b-form-group>
 
 
@@ -149,7 +149,7 @@
                     provider_id: "",
                     provider_name: "",
                     provider_color: "",
-                    provider_operator: 0,
+                    provider_type: "provider",
                     links: {
                         store: "/api/provider",
                         update: "/api/provider",
@@ -157,7 +157,8 @@
                         destroy: "/api/provider",
                     }
                 },
-                data2: null, data_print: null,
+                data2: null,
+                data_print: null,
                 errors: [],
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -207,10 +208,10 @@
                         },
                         {name: "provider_color", print: true, title: "Warna", data: "provider_color", class: "auto"},
                         {
-                            name: "provider_operator",
+                            name: "provider_type",
                             print: true,
-                            title: "Merangkap Operator",
-                            data: "provider_operator",
+                            title: "Tipe Provider",
+                            data: "provider_type",
                             class: "auto"
                         },
                         {title: "Action", data: "action", class: "text-center w-25 all"}

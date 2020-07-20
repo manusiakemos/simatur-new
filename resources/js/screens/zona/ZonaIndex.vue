@@ -6,7 +6,7 @@
                     <li class="breadcrumb-item">
                         <router-link :to="{name:'Dashboard'}">Dashboard</router-link>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">tower</li>
+                    <li class="breadcrumb-item active" aria-current="page">Zona</li>
                 </ol>
             </nav>
             <b-card class="shadow-sm" border-variant="light">
@@ -26,25 +26,8 @@
                         Generate PDF
                     </b-btn>
                 </div>
-
-                <div class="mb-3 mt-3">
-                    <select-ajax api-url="/api/select/provider"
-                                 v-model="filter.provider_id"
-                                 placeholder-text="Filter Provider"
-                                 option-text="provider_name"
-                                 option-value="provider_id"/>
-                </div>
-
-                <div class="mb-3 mt-3">
-                    <select-ajax api-url="/api/select/kecamatan"
-                                 v-model="filter.kecamatan_id"
-                                 placeholder-text="Filter Kecamatan"
-                                 option-text="kecamatan_nama"
-                                 option-value="kecamatan_id"/>
-                </div>
-
                 <div v-if="data_print" id="print" class="d-none d-print-block">
-                    <h4 class="text-center text-capitalize">Report tower</h4>
+                    <h4 class="text-center text-capitalize">Report zona</h4>
                     <table class="table table-bordered">
                         <thead class="bg-primary text-white">
                         <tr>
@@ -64,7 +47,7 @@
                 </div>
                 <datatables
                     :config-dt="configDt"
-                    selector="dt-tower"
+                    selector="dt-zona"
                     ref="dt">
                 </datatables>
             </b-card>
@@ -77,18 +60,18 @@
                      v-model="show_modal"
                      @ok="show_modal = false">
                 <b-form-group
-                    label="Provider"
-                    label-for="provider_id"
-                    :invalid-feedback="this.errors && this.errors.provider_id ? this.errors.provider_id.join() : ''"
-                    :state="this.errors && this.errors.provider_id ? false : true"
+                    label="Tipe Zona"
+                    label-for="zona_type"
+                    :invalid-feedback="this.errors && this.errors.zona_type ? this.errors.zona_type.join() : ''"
+                    :state="this.errors && this.errors.zona_type ? false : true"
                 >
-                    <select-ajax id="provider_id"
-                                 api-url="/api/select/provider"
-                                 option-text="provider_name"
-                                 option-value="provider_id"
-                                 v-model="data.provider_id"
-                    ></select-ajax>
+                    <radio-ajax v-model="data.zona_type"
+                                api-url="/api/select/zona_type"
+                                option-text="text"
+                                option-value="value">
+                    </radio-ajax>
                 </b-form-group>
+
                 <b-form-group
                     label="Kelurahan"
                     label-for="kelurahan_id"
@@ -102,106 +85,64 @@
                                  v-model="data.kelurahan_id"
                     ></select-ajax>
                 </b-form-group>
-                <b-form-group
-                    label="Alamat"
-                    label-for="tower_address"
-                    :invalid-feedback="this.errors && this.errors.tower_address ? this.errors.tower_address.join() : ''"
-                    :state="this.errors && this.errors.tower_address ? false : true"
-                >
-                    <b-form-input id="tower_address"
-                                  v-model="data.tower_address"
-                    ></b-form-input>
-                </b-form-group>
-                <b-form-group
-                    label="Deskripsi"
-                    label-for="tower_desc"
-                    :invalid-feedback="this.errors && this.errors.tower_desc ? this.errors.tower_desc.join() : ''"
-                    :state="this.errors && this.errors.tower_desc ? false : true"
-                >
-                    <b-form-input id="tower_desc"
-                                  v-model="data.tower_desc"
-                    ></b-form-input>
-                </b-form-group>
-                <b-form-group
-                    label="Longitude"
-                    label-for="tower_lng"
-                    :invalid-feedback="this.errors && this.errors.tower_lng ? this.errors.tower_lng.join() : ''"
-                    :state="this.errors && this.errors.tower_lng ? false : true"
-                >
-                    <b-form-input id="tower_lng"
-                                  v-model="data.tower_lng"
-                    ></b-form-input>
-                </b-form-group>
+
                 <b-form-group
                     label="Latitude"
-                    label-for="tower_lat"
-                    :invalid-feedback="this.errors && this.errors.tower_lat ? this.errors.tower_lat.join() : ''"
-                    :state="this.errors && this.errors.tower_lat ? false : true"
+                    label-for="zona_lat"
+                    :invalid-feedback="this.errors && this.errors.zona_lat ? this.errors.zona_lat.join() : ''"
+                    :state="this.errors && this.errors.zona_lat ? false : true"
                 >
-                    <b-form-input id="tower_lat"
-                                  v-model="data.tower_lat"
+                    <b-form-input id="zona_lat"
+                                  v-model="data.zona_lat"
                     ></b-form-input>
-                </b-form-group>
-                <b-form-group
-                    label="Status"
-                    label-for="tower_status"
-                    :invalid-feedback="this.errors && this.errors.tower_status ? this.errors.tower_status.join() : ''"
-                    :state="this.errors && this.errors.tower_status ? false : true"
-                >
-                    <select-ajax id="tower_status"
-                                 api-url="/api/select/tower_status"
-                                 option-text="text"
-                                 option-value="value"
-                                 v-model="data.tower_status"
-                    ></select-ajax>
-                </b-form-group>
-                <b-form-group
-                    label="Tipe Ukuran"
-                    label-for="tower_size_type"
-                    :invalid-feedback="this.errors && this.errors.tower_size_type ? this.errors.tower_size_type.join() : ''"
-                    :state="this.errors && this.errors.tower_size_type ? false : true"
-                >
-                    <select-ajax id="tower_size_type"
-                                 api-url="/api/select/tower_size_type"
-                                 option-text="text"
-                                 option-value="value"
-                                 v-model="data.tower_size_type"
-                    ></select-ajax>
                 </b-form-group>
 
                 <b-form-group
-                    label="Tahun"
-                    label-for="tower_year"
-                    :invalid-feedback="this.errors && this.errors.tower_year ? this.errors.tower_year.join() : ''"
-                    :state="this.errors && this.errors.tower_year ? false : true"
+                    label="Longitude"
+                    label-for="zona_lng"
+                    :invalid-feedback="this.errors && this.errors.zona_lng ? this.errors.zona_lng.join() : ''"
+                    :state="this.errors && this.errors.zona_lng ? false : true"
                 >
-                    <my-date-picker type="year" id="tower_year"
-                                    format="YYYY"
-                                    v-model="data.tower_year"
-                    ></my-date-picker>
-                </b-form-group>
-                <b-form-group
-                    label="Aktif"
-                    label-for="tower_is_active"
-                    :invalid-feedback="this.errors && this.errors.tower_is_active ? this.errors.tower_is_active.join() : ''"
-                    :state="this.errors && this.errors.tower_is_active ? false : true"
-                >
-                    <radio-ajax v-model="data.tower_is_active"
-                                api-url="/api/select/boolean"
-                                option-text="text"
-                                option-value="value">
-                    </radio-ajax>
-                </b-form-group>
-                <b-form-group
-                    label="Tinggi Tower"
-                    label-for="tower_height"
-                    :invalid-feedback="this.errors && this.errors.tower_height ? this.errors.tower_height.join() : ''"
-                    :state="this.errors && this.errors.tower_height ? false : true"
-                >
-                    <b-form-input id="tower_height"
-                                  v-model="data.tower_height"
+                    <b-form-input id="zona_lng"
+                                  v-model="data.zona_lng"
                     ></b-form-input>
                 </b-form-group>
+
+                <div v-if="data.zona_type == 'sub_urban'">
+                    <b-form-group
+                        label="Sub Urban 1"
+                        label-for="zona_sub_1"
+                        :invalid-feedback="this.errors && this.errors.zona_sub_1 ? this.errors.zona_sub_1.join() : ''"
+                        :state="this.errors && this.errors.zona_sub_1 ? false : true"
+                    >
+                        <b-form-input id="zona_sub_1"
+                                      v-model="data.zona_sub_1"
+                        ></b-form-input>
+                    </b-form-group>
+                    <b-form-group
+                        label="Sub Urban 2"
+                        label-for="zona_sub_2"
+                        :invalid-feedback="this.errors && this.errors.zona_sub_2 ? this.errors.zona_sub_2.join() : ''"
+                        :state="this.errors && this.errors.zona_sub_2 ? false : true"
+                    >
+                        <b-form-input id="zona_sub_2"
+                                      v-model="data.zona_sub_2"
+                        ></b-form-input>
+                    </b-form-group>
+                </div>
+
+                <div v-else>
+                    <b-form-group
+                        label="Radius Zona Rural"
+                        label-for="zona_rural"
+                        :invalid-feedback="this.errors && this.errors.zona_rural ? this.errors.zona_rural.join() : ''"
+                        :state="this.errors && this.errors.zona_rural ? false : true"
+                    >
+                        <b-form-input id="zona_rural"
+                                      v-model="data.zona_rural"
+                        ></b-form-input>
+                    </b-form-group>
+                </div>
 
 
                 <template v-slot:modal-footer>
@@ -249,50 +190,26 @@
         mounted() {
             this.setDt();
         },
-        watch: {
-            "filter.provider_id" : function(value){
-                this.$refs.dt.destroy();
-                this.configDt.ajax.data.filter_provider = value;
-                this.$nextTick(() => {
-                    this.$refs.dt.initDt();
-                })
-            },
-            "filter.kecamatan_id" : function(value){
-                this.$refs.dt.destroy();
-                this.configDt.ajax.data.filter_kecamatan = value;
-                this.$nextTick(() => {
-                    this.$refs.dt.initDt();
-                })
-            }
-        },
         data: function () {
             return {
-                filter: {
-                    provider_id:"",
-                    kecamatan_id:"",
-                },
-                title: 'Tower Datatable',
+                title: 'Zona Datatable',
                 action: 'store',
                 show_modal: false,
-                modal_title: 'Tambah Tower',
+                modal_title: 'Tambah Zona',
                 data: {
-                    tower_id: "",
-                    provider_id: "",
-                    kelurahan_id: "",
-                    tower_address: "",
-                    tower_kode: "",
-                    tower_lng: "",
-                    tower_lat: "",
-                    tower_status: "",
-                    tower_size_type: "",
-                    tower_year: "",
-                    tower_is_active: 1,
-                    tower_height: "",
+                    zona_id: "",
+                    zona_type: "rural",
+                    kelurahan_id: null,
+                    zona_lat: null,
+                    zona_lng: null,
+                    zona_sub_1: null,
+                    zona_sub_2: null,
+                    zona_rural: null,
                     links: {
-                        store: "/api/tower",
-                        update: "/api/tower",
-                        show: "/api/tower",
-                        destroy: "/api/tower",
+                        store: "/api/zona",
+                        update: "/api/zona",
+                        show: "/api/zona",
+                        destroy: "/api/zona",
                     }
                 },
                 data2: null, data_print: null,
@@ -304,11 +221,7 @@
                 configDt: {
                     ajax: {
                         type: "GET",
-                        url: "/api/tower",
-                        data: {
-                            filter_provider: null,
-                            filter_kecamatan: null,
-                        }
+                        url: "/api/zona",
                     },
                     processing: true,
                     serverSide: true,
@@ -340,42 +253,20 @@
                         '</select> Data Perhalaman',
                     },
                     columns: [
-                        {name: "tower_kode", print: true, title: "Kode", data: "tower_kode", class: "all"},
+                        {name: "zona_type", print: true, title: "Tipe Zona", data: "zona_type", class: "auto text-capitalize"},
+                        {name: "tb_kelurahan.kelurahan_nama", print: true, title: "Kelurahan", data: "kelurahan_nama", class: "auto text-capitalize"},
+                        {name: "tb_kecamatan.kecamatan_nama", print: true, title: "Kecamatan", data: "kecamatan_nama", class: "auto text-capitalize"},
+                        {name: "zona_lat", print: true, title: "Latitude", data: "zona_lat", class: "auto text-capitalize"},
+                        {name: "zona_lng", print: true, title: "Longitude", data: "zona_lng", class: "auto text-capitalize"},
+                        {name: "zona_sub_1", print: true, title: "Sub Urban 1", data: "zona_sub_1", class: "auto text-capitalize"},
+                        {name: "zona_sub_2", print: true, title: "Sub Urban 2", data: "zona_sub_2", class: "auto text-capitalize"},
                         {
-                            name: "tb_provider.provider_name",
+                            name: "zona_rural",
                             print: true,
-                            title: "Provider",
-                            data: "provider_name",
+                            title: "Radius Zona Rural",
+                            data: "zona_rural",
                             class: "auto"
                         },
-                        {
-                            name: "tb_kelurahan.kelurahan_nama",
-                            print: true,
-                            title: "Kelurahan",
-                            data: "kelurahan_nama",
-                            class: "auto"
-                        },
-                        {
-                            name: "tb_kecamatan.kecamatan_nama",
-                            print: true,
-                            title: "Kecamatan",
-                            data: "kecamatan_nama",
-                            class: "auto"
-                        },
-                        {name: "tower_address", print: true, title: "Alamat", data: "tower_address", class: "auto"},
-                        {name: "tower_lng", print: true, title: "Longitude", data: "tower_lng", class: "auto"},
-                        {name: "tower_lat", print: true, title: "Latitude", data: "tower_lat", class: "auto"},
-                        {name: "tower_status", print: true, title: "Status", data: "tower_status", class: "auto"},
-                        {
-                            name: "tower_size_type",
-                            print: true,
-                            title: "Tipe Ukuran",
-                            data: "tower_size_type",
-                            class: "auto"
-                        },
-                        {name: "tower_year", print: true, title: "Tahun", data: "tower_year", class: "auto"},
-                        {name: "tower_is_active", print: true, title: "Aktif", data: "tower_is_active", class: "auto"},
-                        {name: "tower_height", print: true, title: "Tinggi Tower", data: "tower_height", class: "auto"},
                         {title: "Action", data: "action", class: "text-center w-25 all"}
                     ]
                 },
@@ -384,17 +275,16 @@
         },
         methods: {
             async generatePdf() {
-                var url = `/api/tower?print=true&filter_provider=${this.filter.provider_id}&filter_kecamatan=${this.filter.kecamatan_id}`;
-                var res = await this.axios.get(url);
+                var res = await this.axios.get('/api/zona?print=true');
                 this.data_print = res.data;
                 this.$nextTick(() => {
-                    this.printPdf('landscape')
+                    this.printPdf('portrait')
                 })
             },
             setDt() {
                 var vm = this;
                 var el = this.$refs.dt.$el
-                $(el).find("#dt-tower").on("click", ".btn-edit", function (e) {
+                $(el).find("#dt-zona").on("click", ".btn-edit", function (e) {
                     e.preventDefault();
                     var url = $(this).attr('href');
                     vm.edit(url);
@@ -410,11 +300,11 @@
             create() {
                 this.data = _.cloneDeep(this.data2);
                 this.action = 'store';
-                this.modal_title = 'Tambah Tower';
+                this.modal_title = 'Tambah Zona';
                 this.show_modal = true;
             },
             edit(url) {
-                this.modal_title = 'Edit Tower';
+                this.modal_title = 'Edit Zona';
                 this.action = 'update';
                 this.axios.get(url).then(res => {
                     this.data = _.cloneDeep(res.data);
@@ -476,7 +366,7 @@
                 }).catch(() => {
                     this.$message({
                         type: 'info',
-                        message: 'Tower batal dihapus'
+                        message: 'Zona batal dihapus'
                     });
                     this.refreshDt();
                 });

@@ -14,9 +14,12 @@ class TowerController extends Controller
 {
     public function index(Request $request)
     {
-        $data =Tower::select(['tb_tower.*', 'kecamatan_nama', 'kelurahan_nama', 'provider_name'])->joinall();
+        $data =Tower::select(['tb_tower.*', 'kecamatan_nama', 'kelurahan_nama', 'provider_name'])->joinAll();
         if(isset($request->filter_provider)){
             $data = $data->where('tb_tower.provider_id', $request->filter_provider);
+        }
+        if(isset($request->filter_kecamatan)){
+            $data = $data->where('tb_kelurahan.kecamatan_id', $request->filter_kecamatan);
         }
         return DataTables::of($data)
             ->addColumn('action', function (Tower $value) {
@@ -76,9 +79,9 @@ class TowerController extends Controller
             "tower_address" => [
                 "required"
             ],
-            "tower_desc" => [
+          /*  "tower_desc" => [
                 "required"
-            ],
+            ],*/
             "tower_lng" => [
                 "required"
             ],
@@ -91,9 +94,9 @@ class TowerController extends Controller
             "tower_size_type" => [
                 "required"
             ],
-            "tower_owner_type" => [
+            /*"tower_owner_type" => [
                 "required"
-            ],
+            ],*/
            /* "tower_year" => [
                 "required"
             ],*/
@@ -115,7 +118,6 @@ class TowerController extends Controller
         $db->tower_lat = $request->tower_lat;
         $db->tower_status = $request->tower_status;
         $db->tower_size_type = $request->tower_size_type;
-        $db->tower_owner_type = $request->tower_owner_type;
         $db->tower_year = $request->tower_year;
         $db->tower_is_active = $request->tower_is_active;
         $db->tower_height = $request->tower_height;

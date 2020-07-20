@@ -55,6 +55,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read mixed $tower_map
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Tower joinAll()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Tower whereTowerKode($value)
+ * @property-read \App\Models\Kelurahan|null $kelurahan
+ * @property-read \App\Models\Provider|null $provider
  */
 class Tower extends Model
 {

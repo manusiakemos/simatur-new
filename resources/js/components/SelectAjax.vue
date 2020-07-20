@@ -15,9 +15,7 @@
             ModelListSelect
         },
         created() {
-            this.axios.post(this.apiUrl).then(res => {
-                this.options = res.data;
-            });
+           this.getData();
         },
         data() {
             return {
@@ -40,6 +38,13 @@
             optionValue: {default: "value", required: false},
             placeholderText: {default: "Pilih Salah Satu", required: false},
             apiUrl: {type: String, default: "/api/select/status", required: false},
+        },
+        methods: {
+            getData() {
+                this.axios.post(this.apiUrl).then(res => {
+                    this.options = res.data;
+                });
+            },
         },
     }
 </script>

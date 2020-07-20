@@ -32,6 +32,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Provider withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Provider withoutTrashed()
  * @mixin \Eloquent
+ * @property string|null $provider_type
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Provider whereProviderType($value)
  */
 class Provider extends Model
 {

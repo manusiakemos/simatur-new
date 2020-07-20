@@ -1,3 +1,4 @@
+import Zona from './screens/zona/ZonaIndex.vue'
 import Kunjungan from './screens/kunjungan/KunjunganIndex.vue'
 import TowerProvider from './screens/tower_provider/TowerProviderIndex.vue'
 import Provider from './screens/provider/ProviderIndex.vue'
@@ -50,6 +51,15 @@ const routes = [
                 path: '/mainapp/provider',
                 name: 'Provider',
                 component: Provider,
+                meta: {
+                    requiresAuth: true,
+                    role: 'admin|super-admin'
+                }
+            },
+            {
+                path: '/mainapp/zona',
+                name: 'Zona',
+                component: Zona,
                 meta: {
                     requiresAuth: true,
                     role: 'admin|super-admin'

@@ -18,7 +18,6 @@ Route::middleware(['auth:airlock'])->group(function(){
     Route::get('profile', 'ProfileController@edit')->name('profile.edit');
     Route::put('profile', 'ProfileController@update')->name('profile.update');
     Route::post('profile/avatar', 'ProfileController@avatar')->name('profile.avatar');
-    Route::any('select/{type}', 'SelectController');
     /* my generated route */
     Route::apiResource('user', 'UserController');
     Route::apiResource('kategori', 'KategoriController');
@@ -29,7 +28,9 @@ Route::middleware(['auth:airlock'])->group(function(){
     Route::apiResource('kunjungan', 'KunjunganController');
 });
 
-//Route::apiResource('crudgenerator', 'CrudGeneratorController');
+Route::any('select/{type}', 'SelectController');
+
+Route::apiResource('crudgenerator', 'CrudGeneratorController');
 
 
 Route::any('chart/counterup', 'ChartController@counterup');
@@ -42,3 +43,5 @@ Route::any('chart/tipe_koneksi', 'ChartController@tipeKoneksi');
 Route::any('map/towerprovider', 'MapController@towerProvider');
 
 Route::any('mobile', 'MobileController');
+
+ Route::apiResource('zona', 'ZonaController');
