@@ -132,6 +132,22 @@ class SelectController extends Controller
                     ],
                 ];
                 break;
+            case 'zona_type_filter':
+                return [
+                    [
+                        'text' => 'Semua',
+                        'value' => '',
+                    ],
+                    [
+                        'text' => 'Sub Urban',
+                        'value' => 'sub_urban',
+                    ],
+                    [
+                        'text' => 'Rural',
+                        'value' => 'rural',
+                    ],
+                ];
+                break;
             case 'tower_owner_type':
 //                'provider','pemda','kominfo'
                 return [

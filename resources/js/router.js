@@ -7,7 +7,9 @@ import Tower from './screens/tower/TowerIndex.vue'
 import User from './screens/user/UserIndex.vue'
 import Kategori from './screens/kategori/KategoriIndex.vue'
 import Crud from "./screens/dashboard/Crud";
-import Dashboard from "./screens/dashboard/Dashboard";
+import TowerDashboard from "./screens/dashboard/TowerDashboard";
+import ZonaDashboard from "./screens/dashboard/ZonaDashboard";
+import ChartDashboard from "./screens/dashboard/ChartDashboard";
 import Pages from "./screens/Pages";
 import Login from "./screens/pages/Login";
 import Profile from "./screens/profile/ProfileIndex";
@@ -95,7 +97,25 @@ const routes = [
             {
                 path: '/mainapp/dashboard',
                 name: 'Dashboard',
-                component: Dashboard,
+                component: TowerDashboard,
+                meta: {
+                    requiresAuth: true,
+                    role: 'admin|super-admin'
+                }
+            },
+            {
+                path: '/mainapp/dashboardchart',
+                name: 'ChartDashboard',
+                component: ChartDashboard,
+                meta: {
+                    requiresAuth: true,
+                    role: 'admin|super-admin'
+                }
+            },
+            {
+                path: '/mainapp/dashboardzona',
+                name: 'ZonaDashboard',
+                component: ZonaDashboard,
                 meta: {
                     requiresAuth: true,
                     role: 'admin|super-admin'

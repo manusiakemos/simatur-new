@@ -4,27 +4,65 @@ namespace App\Http\Controllers;
 
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
-use App\Models\Provider;
-use App\Models\TowerProvider;
 use App\Models\Tower;
+use App\Models\TowerProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ChartController extends Controller
 {
 
+    public function __invoke(Request $request, $case)
+    {
+        switch ($case) {
+            case 'tipe_koneksi':
+                return $this->tipeKoneksi($request);
+                break;
+            case 'provider':
+                return $this->provider($request);
+                break;
+            case 'operator':
+                return $this->operator($request);
+                break;
+        }
+    }
+
+    private function provider($request)
+    {
+        $select = DB::raw("count(*) as value, provider_name as label, tb_tower.tower_id, tower_lat, tower_lng, provider_color as color");
+        if (isset($request->provider_id)) {
+            $data = Tower::joinAll()->select($select)
+                ->where("tb_tower.provider_id", $request->provider_id);
+        } else {
+            $data = Tower::joinAll()->select($select);
+        }
+
+        if(isset($request->kecamatan_id)){
+            $data = $data->where("tb_kelurahan.kecamatan_id", $request->kecamatan_id);
+        }
+
+        $data = $data->groupBy("tb_tower.provider_id")->get();
+        return responseJson('data provider pemilik tower', $data);
+    }
+
     /**
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
-    public function tipeKoneksi()
+    public function tipeKoneksi($request)
     {
-        $data = Tower::where('tower_owner_type', 'provider')
-            ->select(DB::raw("count(*) as value, tower_type as label"))
-            ->groupBy('tower_type')
-            ->get();
 
-        return responseJson('Grafik Tipe Koneksi Menara Provider di Kabupaten Tabalong', $data);
+        $data = TowerProvider::joinAll()
+            ->select(DB::raw("count(*) as value, koneksi_tipe as label"))
+            ->groupBy('koneksi_tipe');
+        if(isset($request->kecamatan_id)){
+            $data = $data->where("tb_kelurahan.kecamatan_id", $request->kecamatan_id);
+        }
+
+        $data = $data->get();
+
+        return responseJson('Grafik Tipe Koneksi Operator', $data);
     }
+
     /**
      * @return mixed
      */
@@ -41,94 +79,20 @@ class ChartController extends Controller
         return $data;
     }
 
-    /**
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
-     */
-    public function towerPertahun()
+    private function operator($request)
     {
-        $chart = Tower::select(DB::raw("count(*) as value, tower_year as label"))
-            ->where('tower_status', 'disetujui')
-            ->where('tower_owner_type', 'provider')
-            ->whereNotNull('tower_year')
-            ->groupBy("tower_year");
-        $data = $chart->get();
-        return responseJson('Grafik Menara Provider Pertahun di Kabupaten Tabalong', $data);
-    }
-
-    /**
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
-     */
-    public function pengguna_provider()
-    {
-        $chart = TowerProvider::joinAll()->select(DB::raw("count(*) as value, provider_name as label"))
-            ->groupBy("tb_provider.provider_id");
-        $data = $chart->get();
-        return responseJson('Grafik Menara Provider di Kabupaten Tabalong', $data);
-    }
-
-    /**
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
-     */
-    public function provider()
-    {
-        $data = [];
-        $Provider = Provider::all();
-        $chart = Tower::joinProvider()
-            ->select(DB::raw("count(*) as value, tb_provider.provider_name as label, provider_color as color, tb_provider.provider_id"))
-            ->where('tower_owner_type','=', 'provider')
-            ->groupBy("tb_provider.provider_id");
-        $charts = $chart->get();
-
-        foreach ($Provider as $provider) {
-            foreach ($charts as $value) {
-                if ($value->provider_id == $provider->provider_id) {
-                    $data[] = [
-                        'value' => $value->value,
-                        'label' => $value->label,
-                        'color' => $provider->provider_color
-                    ];
-                }
-            }
+        $provider = null;
+        $select = DB::raw("count(*) as value, provider_name as label, tp_id, provider_color as color");;
+        $data = TowerProvider::joinAll()->select($select);
+        if (isset($request->provider_id)) {
+            $data = $data->where("tb_tower_provider.provider_id", $request->provider_id);
         }
-        return responseJson('Grafik Menara Provider di Kabupaten Tabalong', $data);
-    }
 
-    /**
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
-     */
-    public function kecamatan()
-    {
-        $chart = Tower::joinAll()
-            ->select(DB::raw("count(*) as value, kecamatan_nama as label"))
-            ->where('tower_owner_type', 'provider')
-            ->groupBy("tb_kelurahan.kecamatan_id");
-        $data = $chart->get();
-        return responseJson('Grafik Menara Provider Per Kecamatan di Kabupaten Tabalong', $data);
-    }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
-     */
-    public function kelurahan(Request $request)
-    {
-        $data = [];
-        $chart = Tower::joinAll()
-            ->select(DB::raw("count(*) as value, kelurahan_nama as label, kecamatan_nama"))
-            ->where('tower_owner_type', 'provider');
         if(isset($request->kecamatan_id)){
-            $chart = $chart->where("tb_kelurahan.kecamatan_id", $request->kecamatan_id);
+            $data = $data->where("tb_kecamatan.kecamatan_id", $request->kecamatan_id);
         }
-        $chart = $chart
-            ->groupBy("tb_kelurahan.kelurahan_id")
-            ->orderBy('kecamatan_nama');
-        $charts = $chart->get();
-        foreach ($charts as $chart) {
-            $data[] = [
-                'label' => $chart->label . ' KECAMATAN ' . $chart->kecamatan_nama,
-                'value' => $chart->value,
-            ];
-        }
-        return responseJson('Grafik Menara Provider Per Kelurahan di Kabupaten Tabalong', $data);
+
+        $data = $data->get();
+        return responseJson('data operator pengguna tower', $data);
     }
 }

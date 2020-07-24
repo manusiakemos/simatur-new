@@ -1,8 +1,21 @@
 [
     {
-        "href": "/mainapp/dashboard",
-        "title": "Home",
-        "icon": "fa fa-chart-line"
+        "title": "Dashboard",
+        "icon": "fa fa-chart-line",
+        "child": [
+            {
+                "href": "/mainapp/dashboard",
+                "title": "Tower"
+            },
+            {
+                "href": "/mainapp/dashboardchart",
+                "title": "Chart"
+            },
+            {
+                "href": "/mainapp/dashboardzona",
+                "title": "Zona"
+            }
+        ]
     },
     {
         "href": "/mainapp/crud",

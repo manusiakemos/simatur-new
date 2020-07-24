@@ -43,16 +43,20 @@ class TowerProvider extends Model
 
     public function getLinksAttribute()
     {
-        return generate_links_api("towerprovider", $this->attributes[$this->primaryKey]);
+        if (isset($this->attributes[$this->primaryKey])) {
+            return generate_links_api("towerprovider", $this->attributes[$this->primaryKey]);
+        } else {
+            return '-';
+        }
     }
 
     public function scopeJoinAll($query)
     {
         return $query
             ->join("tb_tower", "tb_tower_provider.tower_id", "=", "tb_tower.tower_id")
+            ->join("tb_provider", "tb_tower_provider.provider_id", "=", "tb_provider.provider_id")
             ->join("tb_kelurahan", "tb_tower.kelurahan_id", "=", "tb_kelurahan.kelurahan_id")
-            ->join("tb_kecamatan", "tb_kelurahan.kecamatan_id", "=", "tb_kecamatan.kecamatan_id")
-            ->join("tb_provider", "tb_tower_provider.provider_id", "=", "tb_provider.provider_id");
+            ->join("tb_kecamatan", "tb_kelurahan.kecamatan_id", "=", "tb_kecamatan.kecamatan_id");
     }
 
     protected $appends = ['links'];

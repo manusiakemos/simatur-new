@@ -2,14 +2,9 @@ import Vue from 'vue'
 require('./bootstrap');
 
 import BootstrapVue from 'bootstrap-vue'
-import router from './router'
 import store from './store'
 
 Vue.use(BootstrapVue);
-
-import VueSidebarMenu from 'vue-sidebar-menu'
-// import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
-Vue.use(VueSidebarMenu)
 
 // import axios from 'axios'
 var axiosInstance = axios.create();
@@ -72,11 +67,11 @@ Vue.mixin(mixins);
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axiosInstance);
 
-import VuejsDialog from 'vuejs-dialog';
+// import VuejsDialog from 'vuejs-dialog';
 // import VuejsDialogMixin from 'vuejs-dialog/dist/vuejs-dialog-mixin.min.js'; // only needed in custom components
 // include the default style
-import 'vuejs-dialog/dist/vuejs-dialog.min.css';
-Vue.use(VuejsDialog);
+// import 'vuejs-dialog/dist/vuejs-dialog.min.css';
+// Vue.use(VuejsDialog);
 
 import VueHtmlToPaper from 'vue-html-to-paper';
 const options = {
@@ -90,6 +85,7 @@ const options = {
         '/css/app.css',
     ]
 }
+
 Vue.use(VueHtmlToPaper,options);
 
 import SelectAjax from "./components/SelectAjax";

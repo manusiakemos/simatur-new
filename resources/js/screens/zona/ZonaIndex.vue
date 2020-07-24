@@ -26,6 +26,39 @@
                         Generate PDF
                     </b-btn>
                 </div>
+
+                <div class="mb-3">
+                    <b-form-group
+                        label="Tipe Zona"
+                        label-for="fzona_type"
+                        :invalid-feedback="this.errors && this.errors.zona_type ? this.errors.zona_type.join() : ''"
+                        :state="this.errors && this.errors.zona_type ? false : true"
+                    >
+                        <select-ajax
+                            id="fzona_type"
+                            v-model="filter.zona_type"
+                            api-url="/api/select/zona_type"
+                            placeholder-text="Semua Tipe Zona"
+                            option-text="text"
+                            option-value="value">
+                        </select-ajax>
+                    </b-form-group>
+
+                    <b-form-group
+                        label="Kecamatan"
+                        label-for="fkecamatan_id"
+                        :invalid-feedback="this.errors && this.errors.kecamatan_id ? this.errors.kecamatan_id.join() : ''"
+                        :state="this.errors && this.errors.kecamatan_id ? false : true"
+                    >
+                        <select-ajax id="fkecamatan_id"
+                                     placeholder-text="Semua Kecamatan"
+                                     api-url="/api/select/kecamatan"
+                                     option-text="kecamatan_nama"
+                                     option-value="kecamatan_id"
+                                     v-model="filter.kecamatan_id"
+                        ></select-ajax>
+                    </b-form-group>
+                </div>
                 <div v-if="data_print" id="print" class="d-none d-print-block">
                     <h4 class="text-center text-capitalize">Report zona</h4>
                     <table class="table table-bordered">
@@ -190,8 +223,28 @@
         mounted() {
             this.setDt();
         },
+        watch: {
+            "filter.zona_type": function (value) {
+                this.$refs.dt.destroy();
+                this.configDt.ajax.data.zona_type = value;
+                this.$nextTick(() => {
+                    this.$refs.dt.initDt();
+                })
+            },
+            "filter.kecamatan_id": function (value) {
+                this.$refs.dt.destroy();
+                this.configDt.ajax.data.kecamatan_id = value;
+                this.$nextTick(() => {
+                    this.$refs.dt.initDt();
+                })
+            }
+        },
         data: function () {
             return {
+                filter: {
+                    kecamatan_id: "",
+                    zona_type: ""
+                },
                 title: 'Zona Datatable',
                 action: 'store',
                 show_modal: false,
@@ -222,6 +275,10 @@
                     ajax: {
                         type: "GET",
                         url: "/api/zona",
+                        data: {
+                            kelurahan_id: "",
+                            kecamatan_id: ""
+                        }
                     },
                     processing: true,
                     serverSide: true,
@@ -253,13 +310,55 @@
                         '</select> Data Perhalaman',
                     },
                     columns: [
-                        {name: "zona_type", print: true, title: "Tipe Zona", data: "zona_type", class: "auto text-capitalize"},
-                        {name: "tb_kelurahan.kelurahan_nama", print: true, title: "Kelurahan", data: "kelurahan_nama", class: "auto text-capitalize"},
-                        {name: "tb_kecamatan.kecamatan_nama", print: true, title: "Kecamatan", data: "kecamatan_nama", class: "auto text-capitalize"},
-                        {name: "zona_lat", print: true, title: "Latitude", data: "zona_lat", class: "auto text-capitalize"},
-                        {name: "zona_lng", print: true, title: "Longitude", data: "zona_lng", class: "auto text-capitalize"},
-                        {name: "zona_sub_1", print: true, title: "Sub Urban 1", data: "zona_sub_1", class: "auto text-capitalize"},
-                        {name: "zona_sub_2", print: true, title: "Sub Urban 2", data: "zona_sub_2", class: "auto text-capitalize"},
+                        {
+                            name: "zona_type",
+                            print: true,
+                            title: "Tipe Zona",
+                            data: "zona_type",
+                            class: "auto text-capitalize"
+                        },
+                        {
+                            name: "tb_kelurahan.kelurahan_nama",
+                            print: true,
+                            title: "Kelurahan",
+                            data: "kelurahan_nama",
+                            class: "auto text-capitalize"
+                        },
+                        {
+                            name: "tb_kecamatan.kecamatan_nama",
+                            print: true,
+                            title: "Kecamatan",
+                            data: "kecamatan_nama",
+                            class: "auto text-capitalize"
+                        },
+                        {
+                            name: "zona_lat",
+                            print: true,
+                            title: "Latitude",
+                            data: "zona_lat",
+                            class: "auto text-capitalize"
+                        },
+                        {
+                            name: "zona_lng",
+                            print: true,
+                            title: "Longitude",
+                            data: "zona_lng",
+                            class: "auto text-capitalize"
+                        },
+                        {
+                            name: "zona_sub_1",
+                            print: true,
+                            title: "Sub Urban 1",
+                            data: "zona_sub_1",
+                            class: "auto text-capitalize"
+                        },
+                        {
+                            name: "zona_sub_2",
+                            print: true,
+                            title: "Sub Urban 2",
+                            data: "zona_sub_2",
+                            class: "auto text-capitalize"
+                        },
                         {
                             name: "zona_rural",
                             print: true,
@@ -270,12 +369,20 @@
                         {title: "Action", data: "action", class: "text-center w-25 all"}
                     ]
                 },
-                file: null,
+                file: null
             }
         },
         methods: {
             async generatePdf() {
-                var res = await this.axios.get('/api/zona?print=true');
+                var url ='/api/zona?print=true';
+                var arr = [];
+                for (var key in this.filter) {
+                    arr.push(`&${key}=${this.filter[key]}`);
+                }
+                arr.forEach(function(val, key){
+                    url = url + val;
+                });
+                var res = await this.axios.get(url);
                 this.data_print = res.data;
                 this.$nextTick(() => {
                     this.printPdf('portrait')

@@ -11,9 +11,15 @@ use Yajra\DataTables\DataTables;
 
 class ZonaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $data = Zona::select(['tb_zona.*', 'kecamatan_nama', 'kelurahan_nama'])->joinAll();
+        if(isset($request->kecamatan_id)){
+            $data = $data->where("tb_kelurahan.kecamatan_id", $request->kecamatan_id);
+        }
+        if(isset($request->zona_type)){
+            $data = $data->where("tb_zona.zona_type", $request->zona_type);
+        }
         return DataTables::of($data)
             ->addColumn('action', function (Zona $value) {
                 return view('actions.zona', [

@@ -3,35 +3,11 @@
         <div class="row">
             <div class="col-lg-4">
                 <div class="form-group">
-                    <label>Tipe Peta</label>
+                    <label>Tipe Zona</label>
                     <select-ajax
-                        api-url="/api/select/map_type"
-                        placeholder-text="Pilih Tipe Peta"
-                        v-model="data.type"></select-ajax>
-                </div>
-
-                <div class="form-group" v-if="data.type == 'operator'">
-                    <label class="text-capitalize">Operator</label>
-                    <select-ajax
-                        ref="operatorRef"
-                        api-url="/api/select/operator"
-                        placeholder-text="Pilih Operator"
-                        option-text="provider_name"
-                        option-value="provider_id"
-                        v-model="data.provider_id">
-                    </select-ajax>
-                </div>
-
-                <div class="form-group" v-else-if="data.type == 'provider'">
-                    <label class="text-capitalize">Provider</label>
-                    <select-ajax
-                        ref="providerRef"
-                        api-url="/api/select/provider"
-                        placeholder-text="Pilih Provider"
-                        option-text="provider_name"
-                        option-value="provider_id"
-                        v-model="data.provider_id">
-                    </select-ajax>
+                        api-url="/api/select/zona_type_filter"
+                        placeholder-text="Pilih Tipe Zona"
+                        v-model="data.zona_type"></select-ajax>
                 </div>
 
                 <div class="form-group">
@@ -69,20 +45,34 @@
                     <MglMarker
                         v-for="(v,i) in coordinates"
                         :key="i"
-                        :coordinates="makeArray(v.tower_lat, v.tower_lng)"
-                        :color="v.provider_color">
+                        :coordinates="makeArray(v.zona_lat, v.zona_lng)"
+                        :color="v.color">
+                        <MglPopup>
+                            <b-card>{{makeArray(v.zona_lat, v.zona_lng)}} <br>
+                                <h4>{{v.zona_type}}</h4>
+                            </b-card>
+                        </MglPopup>
                         <div slot="marker">
-                            <div v-if="v.tower_is_active == 1">
+                            <div v-if="v.zona_type == 'rural'">
                                 <svg class="button" expanded="true" height="100px" width="100px">
-                                    <circle :stroke="v.provider_color" cx="50%" cy="50%" r="7px"
-                                            :fill="v.provider_color">
+                                    <circle :stroke="v.color" cx="50%" cy="50%" r="7px"
+                                            :fill="v.color">
                                     </circle>
-                                    <circle :stroke="v.provider_color" class="pulse" cx="50%" cy="50%" r="10px"
-                                            :fill="v.provider_color">
+                                    <circle :stroke="v.color" class="pulse" cx="50%" cy="50%" r="10px"
+                                            :fill="v.color">
                                     </circle>
-                                    <text x="50%" y="50%" text-anchor="middle" stroke="#333333" stroke-width="1px">
-                                        {{v.provider_name}}
-                                    </text>
+                                    <!--<text x="50%" y="50%" text-anchor="middle" stroke="#333333" stroke-width="1px">
+                                        v.provider_name
+                                    </text>-->
+                                </svg>
+                            </div>
+                            <div v-else>
+                                <svg class="button" expanded="true" height="100px" width="100px">
+                                    <circle stroke="#555" cx="50%" cy="50%" r="7px" fill="#777">
+                                    </circle>
+                                    <!--<text x="50%" y="50%" text-anchor="middle" stroke="#333333" stroke-width="1px">
+                                        v.provider.provider_name
+                                    </text>-->
                                 </svg>
                             </div>
                         </div>
@@ -101,20 +91,6 @@
         components: {
             MglMap, MglMarker, MglFullscreenControl, MglNavigationControl, MglGeojsonLayer, MglPopup
         },
-        watch: {
-            "data.type": function (value) {
-                this.$nextTick(()=>{
-                    switch(value) {
-                        case 'operator':
-                            this.$refs.operatorRef.getData();
-                            break;
-                        case 'provider':
-                            this.$refs.providerRef.getData();
-                            break;
-                    }
-                });
-            }
-        },
         data() {
             return {
                 show:false,
@@ -122,8 +98,8 @@
                 lng: -2.13577,
                 center: [115.5234173,-1.859076],
                 data: {
-                    type:"",
-                    provider_id: "",
+                    type:"zona",
+                    zona_type:"",
                     kecamatan_id: "",
                 },
                 accessToken: this.$store.state.accessToken,
@@ -197,7 +173,7 @@
     };
 </script>
 
-<style>
+<style scoped>
     circle {
         stroke-width: 1px;
         stroke-opacity: 1;
