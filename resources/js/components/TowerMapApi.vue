@@ -80,9 +80,9 @@
                                     <circle :stroke="v.provider_color" class="pulse" cx="50%" cy="50%" r="10px"
                                             :fill="v.provider_color">
                                     </circle>
-                                    <text x="50%" y="50%" text-anchor="middle" stroke="#333333" stroke-width="1px">
+                                    <!--<text x="50%" y="50%" text-anchor="middle" stroke="#333333" stroke-width="1px">
                                         {{v.provider_name}}
-                                    </text>
+                                    </text>-->
                                 </svg>
                             </div>
                         </div>

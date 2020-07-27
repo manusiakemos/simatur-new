@@ -1,19 +1,11 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Lato|Open+Sans:600&display=swap');
-
-// Variables
+@import 'web.scss';
+@import 'animate.scss';
 @import 'variables';
-@import 'vside';
-@import 'sidebar';
-@import 'pages';
-@import 'type';
-@import 'datatables';
-@import 'custom';
-
+@import 'datatables.scss';
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap-vue/src/index.scss';
-@import '~nprogress/nprogress.css';
+//@import '~nprogress/nprogress.css';
 //@import '~vue-bootstrap-sidebar/src/scss/default-theme.scss';
-
-@import 'animate';

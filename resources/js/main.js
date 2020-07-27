@@ -6,72 +6,11 @@ import store from './store'
 
 Vue.use(BootstrapVue);
 
-// import axios from 'axios'
-var axiosInstance = axios.create();
-
-axiosInstance.interceptors.request.use(function (config) {
-    NProgress.start();
-    if(store.state.auth){
-        if (store.state.auth.status && store.state.auth.data) {
-            let token = store.state.auth.token;
-            if (token) {
-                // config.headers['Authorization'] = `Bearer ${token}`
-            }
-        }
-    }
-    return config;
-}, function (error) {
-    NProgress.done(true)
-    // Do something with request error
-    // console.log(error);
-    return Promise.reject(error);
-});
-
-axiosInstance.interceptors.response.use(function (response) {
-    NProgress.done(true)
-    // console.log(response);
-    return response;
-}, function (error) {
-    NProgress.done(true)
-    // console.error(error);
-    alert(error.response.data.message);
-    if (error.response.status == 401 || error.response.status == 419) {
-        var data = {
-            "status": false,
-            "token": "",
-            "data": {
-                "id": "",
-                "name": "",
-                "username": "",
-                "password": "",
-                "password_confirmation": "",
-                "avatar": "",
-                "role": "",
-                "links": {
-                    "update": "",
-                    "edit": "",
-                    "avatar": ""
-                }
-            }
-        };
-        store.commit("setAuth", data);
-        router.push("/pages/login");
-    }
-    return Promise.reject(error);
-});
-
 import mixins from './mixins.js';
-
 Vue.mixin(mixins);
 
 import VueAxios from 'vue-axios'
-Vue.use(VueAxios, axiosInstance);
-
-// import VuejsDialog from 'vuejs-dialog';
-// import VuejsDialogMixin from 'vuejs-dialog/dist/vuejs-dialog-mixin.min.js'; // only needed in custom components
-// include the default style
-// import 'vuejs-dialog/dist/vuejs-dialog.min.css';
-// Vue.use(VuejsDialog);
+Vue.use(VueAxios, axios);
 
 import VueHtmlToPaper from 'vue-html-to-paper';
 const options = {
@@ -88,17 +27,79 @@ const options = {
 
 Vue.use(VueHtmlToPaper,options);
 
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location, onResolve, onReject) {
+    if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
+    return originalPush.call(this, location).catch(err => err)
+}
+
+import VueRouter from 'vue-router'
+Vue.use(VueRouter);
+
+import WebLayout from "./screens/web/WebLayout.vue"
+import Home from "./screens/web/Home.vue"
+import TowerMap from "./screens/web/TowerMap.vue"
+import ZonaMap from "./screens/web/ZonaMap.vue"
+import Statistik from "./screens/web/Statistik.vue"
+import DataTower from "./screens/web/DataTower.vue"
+
+const routes = [
+    {
+        path: '/',
+        redirect: '/home',
+        name: 'WebLayout',
+        component: WebLayout,
+        children: [
+            {
+                path: '/home',
+                name: 'Home',
+                component: Home,
+            },
+            {
+                path: '/towermap',
+                name: 'TowerMap',
+                component: TowerMap,
+            },
+            {
+                path: '/zonamap',
+                name: 'ZonaMap',
+                component: ZonaMap,
+            },
+            {
+                path: '/statistik',
+                name: 'Statistik',
+                component: Statistik,
+            },
+            {
+                path: '/datatower',
+                name: 'DataTower',
+                component: DataTower,
+            }
+        ]
+    },
+]
+
+const router = new VueRouter({
+    mode: 'hash', // https://router.vuejs.org/api/#mode
+    linkActiveClass: 'open active',
+    scrollBehavior: () => ({y: 0}),
+    routes: routes
+});
+
 import SelectAjax from "./components/SelectAjax";
 import RadioAjax from "./components/RadioAjax";
 import MyDatePicker from "./components/MyDatePicker";
 import MyMoney from "./components/MyMoneyr";
 
+import 'vue-search-select/dist/VueSearchSelect.css'
 Vue.component('select-ajax', SelectAjax);
 Vue.component('my-date-picker', MyDatePicker);
 Vue.component('my-money', MyMoney);
 Vue.component('radio-ajax', RadioAjax);
 
 require('chartjs-plugin-datalabels');
+
+window.NProgress = require('nprogress');
 
 new Vue({
     router,

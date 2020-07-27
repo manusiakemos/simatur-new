@@ -17,7 +17,7 @@ class MobileController extends Controller
         $case = $request->act;
         switch ($case) {
             //api data tower
-            case "Tower":
+            case "tower":
                 !isset($request->perpage) ? $perpage = 10 : $perpage = $request->perpage;
                 $query_tower = Tower::with(['provider', 'tower_providers']);
                 if($request->page = false){

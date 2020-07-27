@@ -13,7 +13,7 @@ class LoginController extends Controller
 
     public function showloginForm()
     {
-        return view('admin');
+        return view('layouts.admin');
     }
 
     public function username()

@@ -1,0 +1,17 @@
+#weblayout{
+    background-image: url('../images/bgcolorful.jpg') !important;
+    background-size: cover;
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    min-height:calc(100vh - 0px)!important;
+}
+
+.wrapper{
+    min-height:calc(100vh - 86px)!important;
+}
+
+.navbar-light .navbar-toggler {
+    color: rgba(81, 74, 255, 0.5);
+    border: none !important;
+}
+

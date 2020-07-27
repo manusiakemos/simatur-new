@@ -10,15 +10,22 @@ use Yajra\DataTables\DataTables;
 
 //use App\Http\Resources\TowerResource;
 
+
 class TowerController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:airlock')->except('index');
+    }
+
     public function index(Request $request)
     {
-        $data =Tower::select(['tb_tower.*', 'kecamatan_nama', 'kelurahan_nama', 'provider_name'])->joinAll();
-        if(isset($request->filter_provider)){
+        $data = Tower::select(['tb_tower.*', 'kecamatan_nama', 'kelurahan_nama', 'provider_name'])->joinAll();
+        if (isset($request->filter_provider)) {
             $data = $data->where('tb_tower.provider_id', $request->filter_provider);
         }
-        if(isset($request->filter_kecamatan)){
+        if (isset($request->filter_kecamatan)) {
             $data = $data->where('tb_kelurahan.kecamatan_id', $request->filter_kecamatan);
         }
         return DataTables::of($data)
@@ -26,6 +33,9 @@ class TowerController extends Controller
                 return view('actions.tower', [
                     'value' => $value
                 ]);
+            })
+            ->editColumn('tower_is_active', function (Tower $value) {
+                return boolean_text($value->tower_is_active);
             })
             ->toJson();
     }
@@ -79,9 +89,9 @@ class TowerController extends Controller
             "tower_address" => [
                 "required"
             ],
-          /*  "tower_desc" => [
-                "required"
-            ],*/
+            /*  "tower_desc" => [
+                  "required"
+              ],*/
             "tower_lng" => [
                 "required"
             ],
@@ -97,9 +107,9 @@ class TowerController extends Controller
             /*"tower_owner_type" => [
                 "required"
             ],*/
-           /* "tower_year" => [
-                "required"
-            ],*/
+            /* "tower_year" => [
+                 "required"
+             ],*/
             "tower_is_active" => [
                 "required"
             ],
@@ -123,12 +133,12 @@ class TowerController extends Controller
         $db->tower_height = $request->tower_height;
 
         $kelurahan_id = $request->kelurahan_id;
-        if($db->save()){
+        if ($db->save()) {
             $provider = Provider::find($request->provider_id);
-            if($provider){
+            if ($provider) {
                 $tower_id = $db->tower_id;
-                $name = Str::limit(Str::slug($provider->provider_name),10,"");
-                $db->tower_kode = strtoupper($kelurahan_id .'-'. $name . '-'. $tower_id);
+                $name = Str::limit(Str::slug($provider->provider_name), 10, "");
+                $db->tower_kode = strtoupper($kelurahan_id . '-' . $name . '-' . $tower_id);
             }
         }
 
@@ -139,13 +149,12 @@ class TowerController extends Controller
     {
         $tower = Tower::all();
         $providers = Provider::all();
-        foreach ($tower as $value)
-        {
+        foreach ($tower as $value) {
             $db = Tower::find($value->tower_id);
             $kelurahan_id = $db->kelurahan_id;
             $tower_id = $db->tower_id;
             $provider = $providers->where("provider_id", $db->provider_id)->first();
-            $db->tower_kode = strtoupper($kelurahan_id .'-'. Str::limit(Str::slug($provider->provider_name, ""),10, "") . '-'. $tower_id);
+            $db->tower_kode = strtoupper($kelurahan_id . '-' . Str::limit(Str::slug($provider->provider_name, ""), 10, "") . '-' . $tower_id);
             $db->save();
         }
     }

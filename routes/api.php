@@ -22,10 +22,10 @@ Route::middleware(['auth:airlock'])->group(function () {
     Route::apiResource('user', 'UserController');
     Route::apiResource('kategori', 'KategoriController');
 
-    Route::apiResource('tower', 'TowerController');
     Route::apiResource('provider', 'ProviderController');
     Route::apiResource('towerprovider', 'TowerProviderController');
     Route::apiResource('kunjungan', 'KunjunganController');
+    Route::apiResource('zona', 'ZonaController');
 });
 
 Route::any('select/{type}', 'SelectController');
@@ -39,4 +39,5 @@ Route::any('map', 'MapController@towerProvider');
 
 Route::any('mobile', 'MobileController');
 
-Route::apiResource('zona', 'ZonaController');
+Route::apiResource('tower', 'TowerController');
+
