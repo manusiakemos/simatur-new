@@ -43,15 +43,17 @@ class Arsip extends Model
     public function getArsipFilePathAttribute()
     {
         $x = $this->attributes['arsip_slug'];
-        return route('file.download', $x);
+        return url("/api/arsip/download/$x");
+//        return route('file.download', $x);
     }
+
 
     public function getLinksAttribute()
     {
         return generate_links_api("arsip", $this->attributes[$this->primaryKey]);
     }
 
-    protected $appends = ['links','arsip_file_path'];
+    protected $appends = ['links', 'arsip_file_path'];
 
 
 }

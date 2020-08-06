@@ -13,6 +13,18 @@ class SelectController extends Controller
     public function __invoke(Request $request, $type)
     {
         switch ($type) {
+            case 'arsip_tipe':
+                return [
+                    [
+                        'text' => 'regulasi',
+                        'value' => 'regulasi',
+                    ],
+                    [
+                        'text' => 'lainnya',
+                        'value' => 'lainnya',
+                    ]
+                ];
+                break;
             case 'all_operator_provider':
                 return Provider::all();
                 break;

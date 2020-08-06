@@ -72,6 +72,17 @@
                 </b-form-group>
 
                 <b-form-group
+                    label="Arsip Tipe"
+                    label-for="arsip_tipe"
+                    :invalid-feedback="this.errors && this.errors.arsip_tipe ? this.errors.arsip_tipe.join() : ''"
+                    :state="this.errors && this.errors.arsip_tipe ? false : true"
+                >
+                    <select-ajax api-url="/api/select/arsip_tipe" id="arsip_tipe"
+                                  v-model="data.arsip_tipe"
+                    ></select-ajax>
+                </b-form-group>
+
+                <b-form-group
                     label="File"
                     label-for="arsip_file"
                     :invalid-feedback="this.errors && this.errors.arsip_file ? this.errors.arsip_file.join() : ''"
@@ -139,6 +150,7 @@
                     arsip_name: "",
                     arsip_file: "",
                     arsip_slug: "",
+                    arsip_tipe: "regulasi",
                     links: {
                         store: "/api/arsip",
                         update: "/api/arsip",
@@ -188,6 +200,7 @@
                     },
                     columns: [
                         {name: "arsip_name", print: true, title: "Nama Arsip", data: "arsip_name", class: "auto"},
+                        {name: "arsip_tipe", print: true, title: "Tipe Arsip", data: "arsip_tipe", class: "auto"},
                         {name: "arsip_file", print: true, title: "File", data: "arsip_file", class: "auto"},
                         {name: "arsip_slug", print: true, title: "Slug", data: "arsip_slug", class: "auto"},
                         {title: "Action", data: "action", class: "text-center w-25 all"}
