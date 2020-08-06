@@ -1,3 +1,4 @@
+import Arsip from './screens/arsip/ArsipIndex.vue'
 import Zona from './screens/zona/ZonaIndex.vue'
 import Kunjungan from './screens/kunjungan/KunjunganIndex.vue'
 import TowerProvider from './screens/tower_provider/TowerProviderIndex.vue'
@@ -40,6 +41,15 @@ const routes = [
         name: 'MainApp',
         component: MainApp,
         children: [
+            {
+                path: '/mainapp/arsip',
+                name: 'Arsip',
+                component: Arsip,
+                meta: {
+                    requiresAuth: true,
+                    role: 'admin|super-admin'
+                }
+            },
             {
                 path: '/mainapp/kunjungan',
                 name: 'Kunjungan',

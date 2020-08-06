@@ -40,6 +40,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Zona withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Zona withoutTrashed()
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Zona joinAll()
  */
 class Zona extends Model
 {

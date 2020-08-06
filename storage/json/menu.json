@@ -18,9 +18,9 @@
         ]
     },
     {
-        "href": "/mainapp/crud",
-        "title": "Crud",
-        "icon": "fa fa-chart-line"
+        "href": "/mainapp/arsip",
+        "title": "Arsip",
+        "icon": "fa fa-archive"
     },
     {
         "href": "/mainapp/provider",

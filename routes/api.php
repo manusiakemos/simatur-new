@@ -32,12 +32,16 @@ Route::any('select/{type}', 'SelectController');
 
 Route::apiResource('crudgenerator', 'CrudGeneratorController');
 
-
 Route::any('chart/{case}', 'ChartController');
 
-Route::any('map', 'MapController@towerProvider');
+Route::post('map', 'MapController@towerProvider');
 
-Route::any('mobile', 'MobileController');
+Route::any('mobile/{case}', 'MobileController');
+
+//controller middleware
 
 Route::apiResource('tower', 'TowerController');
 
+
+Route::get('arsip/download/{slug}', 'ArsipController@download')->name('file.download');
+Route::resource('arsip', 'ArsipController');

@@ -184,6 +184,11 @@
                                 ticks: {
                                     beginAtZero: true
                                 }
+                            }],
+                            xAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
                             }]
                         },
                         maintainAspectRatio: false

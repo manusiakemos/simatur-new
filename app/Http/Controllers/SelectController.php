@@ -13,6 +13,9 @@ class SelectController extends Controller
     public function __invoke(Request $request, $type)
     {
         switch ($type) {
+            case 'all_operator_provider':
+                return Provider::all();
+                break;
             case 'tower':
                 return Tower::joinall()->get();
                 break;

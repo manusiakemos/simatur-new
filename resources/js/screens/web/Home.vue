@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div key="home">
       <div id="section-one">
           <div class="container wrapper d-flex align-items-center">
               <div class="row">

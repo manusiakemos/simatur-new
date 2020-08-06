@@ -74,10 +74,7 @@ class KunjunganController extends Controller
             ],
             "tower_id" => [
                 "required"
-            ],
-            "kunjungan_gambar" => [
-                "required"
-            ],
+            ]
         ];
         $this->validate($request, $rules);
 
