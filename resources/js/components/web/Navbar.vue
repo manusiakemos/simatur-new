@@ -1,7 +1,7 @@
 <template>
     <div>
-        <b-navbar toggleable="md" type="light" variant="light" class="pl-sm-5 pr-sm-5">
-            <b-navbar-brand :to="{name:'Home'}">
+        <b-navbar toggleable="md" type="light" variant="light" class="pl-sm-5 pr-sm-5 bg-transparent">
+            <b-navbar-brand @click.prevent="loginToAdmin">
                 <img src="/images/tabalong.png" alt="tabalong" class="logo">
             </b-navbar-brand>
             <h1 class="d-inline-block d-sm-none">SIMATUR</h1>
@@ -31,11 +31,27 @@
 
 <script>
     export default {
-        name: "Navbar"
+        name: "Navbar",
+        methods: {
+            loginToAdmin() {
+                this.counter +=1;
+                if(this.counter == 7){
+                    this.counter = 0;
+                    alert('login to admin');
+                    window.location.assign('/admin');
+                }
+            },
+        },
+        data: function () {
+            return {counter: 0,}
+        },
     }
 </script>
 
 <style scoped>
+    .nav-item{
+        text-transform: uppercase;
+    }
     .logo {
         min-height:60px;
         max-height:calc(100vw / 25);

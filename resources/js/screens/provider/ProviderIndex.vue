@@ -59,6 +59,7 @@
                      size="xl"
                      v-model="show_modal"
                      @ok="show_modal = false">
+
                 <b-form-group
                     label="Nama Provider"
                     label-for="provider_name"
@@ -69,6 +70,20 @@
                                   v-model="data.provider_name"
                     ></b-form-input>
                 </b-form-group>
+
+                <b-form-group
+                    label="Komersil"
+                    label-for="is_komersil"
+                    :invalid-feedback="this.errors && this.errors.is_komersil ? this.errors.is_komersil.join() : ''"
+                    :state="this.errors && this.errors.is_komersil ? false : true"
+                >
+                    <select-ajax
+                        api-url="/api/select/boolean"
+                        id="is_komersil"
+                                  v-model="data.is_komersil"
+                    ></select-ajax>
+                </b-form-group>
+
                 <b-form-group
                     label="Warna"
                     label-for="provider_color"
@@ -80,6 +95,7 @@
                                   v-model="data.provider_color"
                     ></b-form-input>
                 </b-form-group>
+
                 <b-form-group
                     label="Provider Tipe"
                     label-for="provider_type"
@@ -149,6 +165,7 @@
                     provider_id: "",
                     provider_name: "",
                     provider_color: "",
+                    is_komersil: "",
                     provider_type: "provider",
                     links: {
                         store: "/api/provider",
@@ -206,6 +223,7 @@
                             data: "provider_name",
                             class: "auto"
                         },
+                        {name: "is_komersil", print: true, title: "Komersil", data: "is_komersil", class: "auto"},
                         {name: "provider_color", print: true, title: "Warna", data: "provider_color", class: "auto"},
                         {
                             name: "provider_type",

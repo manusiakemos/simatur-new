@@ -84,6 +84,7 @@ class ArsipController extends Controller
         ];
         $this->validate($request, $rules);
         $db->arsip_name = $request->arsip_name;
+        $db->arsip_tipe = $request->arsip_tipe;
         if ($request->hasFile('file')) {
             $filename = my_upload_file($request->file('file'));
             $db->arsip_file = $filename;

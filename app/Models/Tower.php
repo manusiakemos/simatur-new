@@ -100,15 +100,14 @@ class Tower extends Model
 
     public function getTowerLabelAttribute()
     {
-        $kec = isset($this->attributes['kecamatan_nama']) ? $this->attributes['kecamatan_nama'] : null;
-        $kel = isset($this->attributes['kelurahan_nama']) ? $this->attributes['kelurahan_nama'] : null;
-        $kode = isset($this->attributes['tower_kode']) ? $this->attributes['tower_kode'] : null;
-
-        if ($kec && $kel && $kode) {
-            return "$kode - Kecamatan $kec Kelurahan $kel";
-        } else {
-            return $kode;
+//        $kec = isset($this->attributes['kecamatan_nama']) ? $this->attributes['kecamatan_nama'] : null;
+//        $kel = isset($this->attributes['kelurahan_nama']) ? $this->attributes['kelurahan_nama'] : null;
+        $addr = isset($this->attributes['tower_address']) ? $this->attributes['tower_address'] : '';
+        $kode = isset($this->attributes['tower_kode']) ? $this->attributes['tower_kode'] : '';
+        if($addr && $kode){
+            return $kode . ' / ' .$addr;
         }
+        return $kode;
     }
 
     protected $appends = ['links', 'tower_map', 'tower_label'];

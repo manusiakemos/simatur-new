@@ -14,6 +14,21 @@
                                  v-model="data.kecamatan_id"></select-ajax>
                 </b-form-group>
             </div>
+
+            <div class="col-lg-12">
+                <b-form-group
+                    id="is_komersil"
+                    label-for="is_komersil"
+                >
+                    <select-ajax id="is_komersil"
+                                 api-url="/api/select/is_komersil"
+                                 placeholder-text="Pilih Tipe"
+                                 option-value="value"
+                                 option-text="text"
+                                 v-model="data.is_komersil"></select-ajax>
+                </b-form-group>
+            </div>
+
             <div class="col-12">
                 <h4 class="text-capitalize">{{message}}</h4>
             </div>
@@ -64,6 +79,11 @@
     export default {
         watch: {
             "data.kecamatan_id": function (value) {
+                this.loaded = false;
+                this.initDataChart();
+                this.getData();
+            },
+            "data.is_komersil": function (value) {
                 this.loaded = false;
                 this.initDataChart();
                 this.getData();
@@ -252,6 +272,7 @@
             data: {
                 provider_id: "",
                 kecamatan_id: "",
+                is_komersil: 1,
             },
         }),
         created() {

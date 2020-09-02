@@ -45,3 +45,9 @@ Route::apiResource('tower', 'TowerController');
 
 Route::get('arsip/download/{slug}', 'ArsipController@download')->name('file.download');
 Route::resource('arsip', 'ArsipController');
+
+if(config('app.debug')){
+    Route::get('/artisan/migrate', function(){
+        \Illuminate\Support\Facades\Artisan::call('migrate');
+    });
+}

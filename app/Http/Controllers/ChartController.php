@@ -18,10 +18,14 @@ class ChartController extends Controller
             case 'tipe_koneksi':
                 return $this->tipeKoneksi($request);
                 break;
+
             case 'provider':
+//              pemilik tower
                 return $this->provider($request);
                 break;
+
             case 'operator':
+//              pengguna tower
                 return $this->operator($request);
                 break;
         }
@@ -37,8 +41,11 @@ class ChartController extends Controller
             $data = Tower::joinAll()->select($select);
         }
 
-        if(isset($request->kecamatan_id)){
+        if (isset($request->kecamatan_id)) {
             $data = $data->where("tb_kelurahan.kecamatan_id", $request->kecamatan_id);
+        }
+        if (isset($request->is_komersil)) {
+            $data = $data->where("is_komersil", $request->is_komersil);
         }
 
         $data = $data->groupBy("tb_tower.provider_id")->get();
@@ -54,8 +61,11 @@ class ChartController extends Controller
         $data = TowerProvider::joinAll()
             ->select(DB::raw("count(*) as value, koneksi_tipe as label"))
             ->groupBy('koneksi_tipe');
-        if(isset($request->kecamatan_id)){
+        if (isset($request->kecamatan_id)) {
             $data = $data->where("tb_kelurahan.kecamatan_id", $request->kecamatan_id);
+        }
+        if (isset($request->is_komersil)) {
+            $data = $data->where("is_komersil", $request->is_komersil);
         }
 
         $data = $data->get();
@@ -79,20 +89,24 @@ class ChartController extends Controller
         return $data;
     }
 
+    //        pengguna tower
     private function operator($request)
     {
-        $provider = null;
+//        provider_id && kecamatan_id;
         $select = DB::raw("count(*) as value, provider_name as label, tp_id, provider_color as color");;
         $data = TowerProvider::joinAll()->select($select);
         if (isset($request->provider_id)) {
             $data = $data->where("tb_tower_provider.provider_id", $request->provider_id);
         }
 
-        if(isset($request->kecamatan_id)){
+        if (isset($request->kecamatan_id)) {
             $data = $data->where("tb_kecamatan.kecamatan_id", $request->kecamatan_id);
         }
+        if (isset($request->is_komersil)) {
+            $data = $data->where("is_komersil", $request->is_komersil);
+        }
 
-        $data = $data->get();
+        $data = $data->groupBy('tb_tower_provider.provider_id')->get();
         return responseJson('data operator pengguna tower', $data);
     }
 }

@@ -71,6 +71,18 @@ class SelectController extends Controller
                     ]
                 ];
                 break;
+            case 'is_komersil':
+                return [
+                    [
+                        'text' => 'Komersil',
+                        'value' => 1,
+                    ],
+                    [
+                        'text' => 'Non Komersil',
+                        'value' => 0,
+                    ]
+                ];
+                break;
             case 'koneksi_tipe':
                 return [
                     [

@@ -21,6 +21,9 @@ class ProviderController extends Controller
             ->editColumn('provider_operator', function (Provider $value) {
                 return boolean_text($value->provider_operator, "Ya", "Tidak");
             })
+            ->editColumn('is_komersil', function (Provider $value) {
+                return boolean_text($value->is_komersil, "Komersil", "Non Komersil");
+            })
             ->editColumn('provider_color', function (Provider $value) {
                 return "<span class='badge text-white p-2' style='background:$value->provider_color'>$value->provider_color</span>";
             })
@@ -82,6 +85,7 @@ class ProviderController extends Controller
 
         $db->provider_name = $request->provider_name;
         $db->provider_color = $request->provider_color;
+        $db->is_komersil = $request->is_komersil;
         $db->provider_type = $request->provider_type;
 
         return $db->save();

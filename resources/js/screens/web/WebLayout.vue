@@ -1,9 +1,7 @@
 <template>
     <div id="weblayout">
         <navbar></navbar>
-        <transition name="fade" mode="out-in">
-            <router-view></router-view>
-        </transition>
+        <router-view></router-view>
     </div>
 </template>
 

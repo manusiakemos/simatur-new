@@ -12,26 +12,29 @@
                                Refresh
                            </b-btn>
 
-                           <b-btn variant="primary" @click="generatePdf">
-                               <span class="fa fa-file-pdf"></span>
+                           <b-btn variant="danger" @click="generatePdf">
+                               <span class="fa fa-file-pdf-o"></span>
                                Generate PDF
                            </b-btn>
                        </div>
 
                        <div class="mb-3 mt-3">
-                           <select-ajax api-url="/api/select/provider"
-                                        v-model="filter.provider_id"
-                                        placeholder-text="Filter Provider"
-                                        option-text="provider_name"
-                                        option-value="provider_id"/>
-                       </div>
-
-                       <div class="mb-3 mt-3">
-                           <select-ajax api-url="/api/select/kecamatan"
-                                        v-model="filter.kecamatan_id"
-                                        placeholder-text="Filter Kecamatan"
-                                        option-text="kecamatan_nama"
-                                        option-value="kecamatan_id"/>
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <select-ajax api-url="/api/select/provider"
+                                               v-model="filter.provider_id"
+                                               placeholder-text="Filter Provider"
+                                               option-text="provider_name"
+                                               option-value="provider_id"/>
+                              </div>
+                              <div class="col-md-6">
+                                  <select-ajax api-url="/api/select/kecamatan"
+                                               v-model="filter.kecamatan_id"
+                                               placeholder-text="Filter Kecamatan"
+                                               option-text="kecamatan_nama"
+                                               option-value="kecamatan_id"/>
+                              </div>
+                          </div>
                        </div>
 
 
