@@ -72,7 +72,7 @@
             },
             refresh() {
                 var me = this;
-                me.dataTablesVue.ajax.reload();
+                me.dataTablesVue.ajax.reload(null, false);
             }
         }
     };
