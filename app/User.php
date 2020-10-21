@@ -49,7 +49,7 @@ use Laravel\Airlock\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereApiToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRememberToen($value)
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, Notifiable;
 

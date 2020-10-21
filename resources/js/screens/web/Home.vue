@@ -1,7 +1,7 @@
 <template>
     <div key="home">
       <div id="section-one">
-          <div class="container wrapper d-flex align-items-center">
+          <div class="container">
               <div class="row">
                   <div class="col-sm-12 col-md-8" id="text-logo">
                       <h1 class="display-2 d-none d-lg-block">SIMATUR</h1>
@@ -25,11 +25,15 @@
     .playstore{
         width:200px;
     }
-    #text-logo{
-        position:relative;
-    }
 
     #mockup-image{
         max-height: 80vh;
+    }
+
+    #text-logo{
+        padding-top: 10%;
+        height:100%;
+        flex:1;
+        align-items: center;
     }
 </style>

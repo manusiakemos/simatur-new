@@ -13,3 +13,14 @@
         }
     }
 </script>
+
+<style scoped>
+    #weblayout{
+        background-image: url('../../../images/Artboard.svg') !important;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        min-height:calc(100vh - 0px)!important;
+    }
+
+</style>

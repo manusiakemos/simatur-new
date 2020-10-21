@@ -201,12 +201,16 @@ class SelectController extends Controller
             case'role':
                 return [
                     [
-                        'text' => 'super-admin',
+                        'text' => 'Super Admin',
                         'value' => 'super-admin',
                     ],
                     [
-                        'text' => 'admin',
+                        'text' => 'Admin',
                         'value' => 'admin',
+                    ],
+                    [
+                        'text' => 'Provider',
+                        'value' => 'user',
                     ]
                 ];
                 break;
@@ -231,6 +235,26 @@ class SelectController extends Controller
                     [
                         'text' => "Tidak",
                         'value' => 0,
+                    ]
+                ];
+                break;
+            case 'rekomendasi_status':
+                return [
+                    [
+                        'text' => 'ditinjau',
+                        'value' => 'ditinjau',
+                    ],
+                    [
+                        'text' => 'disetujui',
+                        'value' => 'disetujui',
+                    ],
+                    [
+                        'text' => 'ditolak',
+                        'value' => 'ditolak',
+                    ],
+                    [
+                        'text' => 'revisi',
+                        'value' => 'revisi',
                     ]
                 ];
                 break;

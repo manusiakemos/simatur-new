@@ -4,41 +4,46 @@
         "icon": "fa fa-chart-line",
         "child": [
             {
-                "href": "/mainapp/dashboard",
+                "href": "/admin/dashboard",
                 "title": "Tower"
             },
             {
-                "href": "/mainapp/dashboardchart",
+                "href": "/admin/dashboardchart",
                 "title": "Chart"
             },
             {
-                "href": "/mainapp/dashboardzona",
+                "href": "/admin/dashboardzona",
                 "title": "Zona"
             }
         ]
     },
     {
-        "href": "/mainapp/arsip",
+        "href": "/admin/arsip",
         "title": "Arsip",
         "icon": "fa fa-archive"
     },
     {
-        "href": "/mainapp/provider",
+        "href": "/admin/permohonan",
+        "title": "Permohonan",
+        "icon": "fa fa-file-archive"
+    },
+    {
+        "href": "/admin/provider",
         "title": "Provider Operator",
         "icon": "fa fa-list-alt"
     },
     {
-        "href": "/mainapp/zona",
+        "href": "/admin/zona",
         "title": "Zona",
         "icon": "fa fa-list-alt"
     },
     {
-        "href": "/mainapp/tower",
+        "href": "/admin/tower",
         "title": "Tower",
         "icon": "fa fa-list-alt"
     },
     {
-        "href": "/mainapp/kunjungan",
+        "href": "/admin/kunjungan",
         "title": "Kunjungan",
         "icon": "fa fa-list-alt"
     },
@@ -47,7 +52,7 @@
         "icon": "fa fa-cog",
         "child": [
             {
-                "href": "/mainapp/user",
+                "href": "/admin/user",
                 "title": "User Management"
             }
         ]

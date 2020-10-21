@@ -18,7 +18,7 @@
                                 <b-img :src="auth.data.avatar" v-bind="mainPropsImg" rounded="circle"
                                        alt="Circle image"></b-img>
                             </template>
-                            <b-dropdown-item variant="dark" @click.prevent="pushRoute('/mainapp/profile')">
+                            <b-dropdown-item variant="dark" @click.prevent="pushRoute('/admin/profile')">
                                 <span class="fa fa-user-circle"></span> Profil
                             </b-dropdown-item>
                             <b-dropdown-divider></b-dropdown-divider>
@@ -30,9 +30,7 @@
                 </div>
             </div>
             <div class="container-fluid content-wrap">
-                <transition name="fade" mode="out-in">
-                    <router-view></router-view>
-                </transition>
+                <router-view></router-view>
             </div>
         </section>
     </div>

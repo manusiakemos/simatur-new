@@ -32,6 +32,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Arsip withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Arsip withoutTrashed()
  * @mixin \Eloquent
+ * @property string $arsip_tipe
+ * @property-read mixed $arsip_file_path
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Arsip whereArsipTipe($value)
  */
 class Arsip extends Model
 {

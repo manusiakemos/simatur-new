@@ -34,6 +34,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @mixin \Eloquent
  * @property string|null $provider_type
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Provider whereProviderType($value)
+ * @property int $is_komersil
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Provider whereIsKomersil($value)
  */
 class Provider extends Model
 {

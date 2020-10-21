@@ -95,6 +95,21 @@
                                 option-value="value">
                     </radio-ajax>
                 </b-form-group>
+
+                <b-form-group
+                    v-if="data.role == 'user'"
+                    label="Provider"
+                    label-for="provider_id"
+                    :invalid-feedback="this.errors && this.errors.provider_id ? this.errors.provider_id.join() : ''"
+                    :state="this.errors && this.errors.provider_id ? false : true"
+                >
+                    <select-ajax v-model="data.provider_id"
+                                api-url="/api/select/provider"
+                                option-text="provider_name"
+                                option-value="provider_id">
+                    </select-ajax>
+                </b-form-group>
+
                 <b-form-group
                     label="Password"
                     label-for="password"
@@ -102,6 +117,7 @@
                     :state="this.errors && this.errors.password ? false : true"
                 >
                     <b-form-input id="password"
+                                  type="password"
                                   v-model="data.password"
                     ></b-form-input>
                 </b-form-group>
@@ -165,6 +181,7 @@
                 modal_title: 'Tambah User',
                 data: {
                     id: "",
+                    provider_id:"",
                     name: "",
                     email: "",
                     username: "",

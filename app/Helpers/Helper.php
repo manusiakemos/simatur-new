@@ -249,15 +249,15 @@ function generate_links($name, $id, $links_additional= [])
 
 function generate_links_api($name, $id, $links_additional= [])
 {
+    $links = [
+        'store' => route($name.".store"),
+        'show' => route($name.'.show', $id),
+        'update' => route($name.'.update', $id),
+        'destroy' => route($name.'.destroy', $id),
+    ];
     if(count($links_additional) > 0){
-        $links = $links_additional;
-    }else{
-        $links = [
-            'store' => route($name.".store"),
-            'show' => route($name.'.show', $id),
-            'update' => route($name.'.update', $id),
-            'destroy' => route($name.'.destroy', $id),
-        ];
+        $links = collect($links);
+        $links->merge($links_additional)->all();
     }
 
     return auth()->check() ? $links : [];

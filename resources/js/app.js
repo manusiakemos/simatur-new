@@ -1,22 +1,32 @@
 import Vue from 'vue'
-require('./bootstrap');
-
-import BootstrapVue from 'bootstrap-vue'
 import router from './router'
 import store from './store'
+import BootstrapVue from 'bootstrap-vue'
+import VueSidebarMenu from 'vue-sidebar-menu'
+import VueAxios from 'vue-axios'
 
+import mixins from './mixins.js';
+Vue.mixin(mixins);
+
+import VuejsDialog from 'vuejs-dialog';
+import 'vuejs-dialog/dist/vuejs-dialog.min.css';
+import VueHtmlToPaper from 'vue-html-to-paper';
+import VueNavigationBar from "vue-navigation-bar";
+import SelectAjax from "./components/SelectAjax";
+import RadioAjax from "./components/RadioAjax";
+import MyDatePicker from "./components/MyDatePicker";
+import MyMoney from "./components/MyMoneyr";
+
+require('./bootstrap');
 Vue.use(BootstrapVue);
 
-import VueSidebarMenu from 'vue-sidebar-menu'
-// import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
-Vue.use(VueSidebarMenu)
+Vue.use(VueSidebarMenu);
 
-// import axios from 'axios'
-var axiosInstance = axios.create();
+let axiosInstance = axios.create();
 
 axiosInstance.interceptors.request.use(function (config) {
     NProgress.start();
-    if(store.state.auth){
+    if (store.state.auth) {
         if (store.state.auth.status && store.state.auth.data) {
             let token = store.state.auth.token;
             if (token) {
@@ -65,20 +75,15 @@ axiosInstance.interceptors.response.use(function (response) {
     return Promise.reject(error);
 });
 
-import mixins from './mixins.js';
-
-Vue.mixin(mixins);
-
-import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axiosInstance);
 
-import VuejsDialog from 'vuejs-dialog';
-// import VuejsDialogMixin from 'vuejs-dialog/dist/vuejs-dialog-mixin.min.js'; // only needed in custom components
-// include the default style
-import 'vuejs-dialog/dist/vuejs-dialog.min.css';
+import * as LocationPicker from 'vue2-location-picker'
+Vue.use(LocationPicker, {
+    installComponents: false, // If true, create it globally
+})
+
 Vue.use(VuejsDialog);
 
-import VueHtmlToPaper from 'vue-html-to-paper';
 const options = {
     name: '_blank',
     specs: [
@@ -89,13 +94,10 @@ const options = {
     styles: [
         '/css/app.css',
     ]
-}
-Vue.use(VueHtmlToPaper,options);
+};
+Vue.use(VueHtmlToPaper, options);
 
-import SelectAjax from "./components/SelectAjax";
-import RadioAjax from "./components/RadioAjax";
-import MyDatePicker from "./components/MyDatePicker";
-import MyMoney from "./components/MyMoneyr";
+Vue.component("vue-navigation-bar", VueNavigationBar);
 
 Vue.component('select-ajax', SelectAjax);
 Vue.component('my-date-picker', MyDatePicker);
@@ -107,4 +109,4 @@ require('chartjs-plugin-datalabels');
 new Vue({
     router,
     store
-}).$mount('#app')
+}).$mount('#app');

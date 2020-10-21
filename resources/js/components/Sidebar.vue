@@ -60,7 +60,7 @@
                                 }
                             }
                         });
-                        this.$router.push({path: '/pages/login'});
+                        this.$router.push({path: '/'});
                     });
             },
             getData() {

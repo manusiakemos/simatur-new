@@ -1,8 +1,8 @@
 export default {
-    data(){
-      return{
-          header_upload:{ headers: { 'Content-Type': 'multipart/form-data' } }
-      }
+    data() {
+        return {
+            header_upload: {headers: {'Content-Type': 'multipart/form-data'}},
+        }
     },
     watch: {
         show_modal: function (value) {
@@ -10,16 +10,21 @@ export default {
             this.file = null;
         }
     },
+    computed: {
+        auth() {
+            return this.$store.state.auth;
+        }
+    },
     methods: {
-        printPdf(orientation='portrait', target='print') {
-            if(orientation == 'landscape'){
+        printPdf(orientation = 'portrait', target = 'print') {
+            if (orientation == 'landscape') {
                 var localOptions = {
                     styles: [
                         '/css/app.css',
                         '/css/landscape.css'
                     ]
                 };
-            }else{
+            } else {
                 var localOptions = {
                     styles: [
                         '/css/app.css',
@@ -114,20 +119,19 @@ export default {
             // var tampilWaktu = "Jam: " + jam + ":" + menit + ":" + detik;
             return tampilTanggal
         },
-        makeFormData(data){
+        makeFormData(data) {
             // Object.entries(a)
             var form_data = new FormData();
 
-            for ( var key in data ) {
+            for (var key in data) {
                 var d = data[key];
-                if(d == 'null'){
-                    d = "";
+                if (d != 'null') {
+                    form_data.append(key, d);
                 }
-                form_data.append(key, d);
             }
             return form_data;
         },
-        makeToast(message='success',title='success',variant='primary',append = false) {
+        makeToast(message = 'success', title = 'success', variant = 'primary', append = false) {
             this.toastCount++
             this.$bvToast.toast(message, {
                 title: title,
@@ -135,6 +139,31 @@ export default {
                 variant: variant,
                 appendToast: append
             })
-        }
+        },
+        logout() {
+            this.$dialog.confirm('Apakah Kamu Yakin?')
+                .then(() => {
+                    this.axios.post('/logout');
+                    this.makeToast("Logout");
+                    this.$store.commit('setAuth', {
+                        "status": false,
+                        "token": "",
+                        "data": {
+                            "name": "",
+                            "username": "",
+                            "password": "",
+                            "password_confirmation": "",
+                            "avatar": "",
+                            "role": "",
+                            "links": {
+                                "update": "",
+                                "edit": "",
+                                "avatar": ""
+                            }
+                        }
+                    });
+                    this.$router.push({path: '/'});
+                });
+        },
     },
 };

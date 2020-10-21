@@ -1,10 +1,10 @@
+import Permohonan from './screens/permohonan/PermohonanIndex.vue'
 import Arsip from './screens/arsip/ArsipIndex.vue'
 import Zona from './screens/zona/ZonaIndex.vue'
 import Kunjungan from './screens/kunjungan/KunjunganIndex.vue'
 import TowerProvider from './screens/tower_provider/TowerProviderIndex.vue'
 import Provider from './screens/provider/ProviderIndex.vue'
 import Tower from './screens/tower/TowerIndex.vue'
-// Main Views
 import User from './screens/user/UserIndex.vue'
 import Kategori from './screens/kategori/KategoriIndex.vue'
 import Crud from "./screens/dashboard/Crud";
@@ -12,12 +12,27 @@ import TowerDashboard from "./screens/dashboard/TowerDashboard";
 import ZonaDashboard from "./screens/dashboard/ZonaDashboard";
 import ChartDashboard from "./screens/dashboard/ChartDashboard";
 import Pages from "./screens/Pages";
+import NotFound from "./screens/pages/404";
+import WebSuccessRegister from "./screens/pages/WebSuccessRegister.vue"
 import Login from "./screens/pages/Login";
+import Register from "./screens/pages/Register";
 import Profile from "./screens/profile/ProfileIndex";
+//web user
+
+import WebLayout from "./screens/web/WebLayout.vue"
+import WebHome from "./screens/web/Home.vue"
+import WebTowerMap from "./screens/web/TowerMap.vue"
+import WebZonaMap from "./screens/web/ZonaMap.vue"
+import WebStatistik from "./screens/web/Statistik.vue"
+import WebDataTower from "./screens/web/DataTower.vue"
+import WebListPermohonan from "./screens/web/ListPermohonan.vue"
+import WebArsip from "./screens/web/WebArsip.vue"
+
+
 // vuex
 import store from './store'
 // Containers
-import MainApp from "./screens/MainApp"
+import AdminApp from "./screens/AdminApp"
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -30,19 +45,19 @@ const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location, onResolve, onReject) {
     if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
     return originalPush.call(this, location).catch(err => err)
-}
+};
 
 Vue.use(VueRouter);
 
 const routes = [
     {
-        path: '/mainapp',
-        redirect: '/mainapp/dashboard',
-        name: 'MainApp',
-        component: MainApp,
+        path: '/admin',
+        redirect: '/admin/dashboard',
+        name: 'AdminApp',
+        component: AdminApp,
         children: [
             {
-                path: '/mainapp/arsip',
+                path: '/admin/arsip',
                 name: 'Arsip',
                 component: Arsip,
                 meta: {
@@ -51,7 +66,16 @@ const routes = [
                 }
             },
             {
-                path: '/mainapp/kunjungan',
+                path: '/admin/permohonan',
+                name: 'Permohonan',
+                component: Permohonan,
+                meta: {
+                    requiresAuth: true,
+                    role: 'admin|super-admin'
+                }
+            },
+            {
+                path: '/admin/kunjungan',
                 name: 'Kunjungan',
                 component: Kunjungan,
                 meta: {
@@ -60,7 +84,7 @@ const routes = [
                 }
             },
             {
-                path: '/mainapp/provider',
+                path: '/admin/provider',
                 name: 'Provider',
                 component: Provider,
                 meta: {
@@ -69,7 +93,7 @@ const routes = [
                 }
             },
             {
-                path: '/mainapp/zona',
+                path: '/admin/zona',
                 name: 'Zona',
                 component: Zona,
                 meta: {
@@ -78,7 +102,7 @@ const routes = [
                 }
             },
             {
-                path: '/mainapp/towerprovider/:tower_id',
+                path: '/admin/towerprovider/:tower_id',
                 name: 'TowerProvider',
                 component: TowerProvider,
                 meta: {
@@ -87,7 +111,7 @@ const routes = [
                 }
             },
             {
-                path: '/mainapp/tower',
+                path: '/admin/tower',
                 name: 'Tower',
                 component: Tower,
                 meta: {
@@ -96,7 +120,7 @@ const routes = [
                 }
             },
             {
-                path: '/mainapp/kategori',
+                path: '/admin/kategori',
                 name: 'Kategori',
                 component: Kategori,
                 meta: {
@@ -105,7 +129,7 @@ const routes = [
                 }
             },
             {
-                path: '/mainapp/dashboard',
+                path: '/admin/dashboard',
                 name: 'Dashboard',
                 component: TowerDashboard,
                 meta: {
@@ -114,7 +138,7 @@ const routes = [
                 }
             },
             {
-                path: '/mainapp/dashboardchart',
+                path: '/admin/dashboardchart',
                 name: 'ChartDashboard',
                 component: ChartDashboard,
                 meta: {
@@ -123,7 +147,7 @@ const routes = [
                 }
             },
             {
-                path: '/mainapp/dashboardzona',
+                path: '/admin/dashboardzona',
                 name: 'ZonaDashboard',
                 component: ZonaDashboard,
                 meta: {
@@ -132,7 +156,7 @@ const routes = [
                 }
             },
             {
-                path: '/mainapp/crud',
+                path: '/admin/crud',
                 name: 'Crud',
                 component: Crud,
                 meta: {
@@ -141,7 +165,7 @@ const routes = [
                 }
             },
             {
-                path: '/mainapp/user',
+                path: '/admin/user',
                 name: 'User',
                 component: User,
                 meta: {
@@ -150,7 +174,7 @@ const routes = [
                 }
             },
             {
-                path: '/mainapp/profile',
+                path: '/admin/profile',
                 name: 'Profile',
                 component: Profile,
                 meta: {
@@ -162,14 +186,98 @@ const routes = [
     },
     {
         path: '/',
-        redirect: '/pages/login',
+        redirect: '/home',
+        name: 'WebLayout',
+        component: WebLayout,
+        children: [
+            {
+                path: '/home',
+                name: 'Home',
+                component: WebHome,
+                meta: {
+                    requiresAuth: false,
+                }
+            },
+            {
+                path: '/weblistpermohanan',
+                name: 'WebListPermohonan',
+                component: WebListPermohonan,
+                meta: {
+                    requiresAuth: true,
+                    role: 'user'
+                }
+            },
+            {
+                path: '/webarsip',
+                name: 'WebArsip',
+                component: WebArsip,
+                meta: {
+                    requiresAuth: true,
+                    role: 'user'
+                }
+            },
+            {
+                path: '/towermap',
+                name: 'TowerMap',
+                component: WebTowerMap,
+                meta: {
+                    requiresAuth: false,
+                }
+            },
+            {
+                path: '/zonamap',
+                name: 'ZonaMap',
+                component: WebZonaMap,
+                meta: {
+                    requiresAuth: false,
+                }
+            },
+            {
+                path: '/statistik',
+                name: 'Statistik',
+                component: WebStatistik,
+                meta: {
+                    requiresAuth: false,
+                }
+            },
+            {
+                path: '/datatower',
+                name: 'DataTower',
+                component: WebDataTower,
+                meta: {
+                    requiresAuth: false,
+                }
+            }
+        ]
+    },
+    {
+        path: '*',
+        redirect: '/pages/404',
         name: 'Pages',
         component: Pages,
         children: [
             {
+                path: '/pages/successregister',
+                name: 'WebSuccessRegister',
+                component: WebSuccessRegister,
+                meta: {
+                    requiresAuth: false,
+                }
+            },
+            {
+                path: '/pages/404',
+                name: '404',
+                component: NotFound,
+            },
+            {
                 path: '/pages/login',
                 name: 'Login',
                 component: Login,
+            },
+            {
+                path: '/pages/register',
+                name: 'Register',
+                component: Register,
             }
         ]
     }
@@ -194,12 +302,6 @@ router.afterEach((to, from) => {
 });
 
 router.beforeEach((to, from, next) => {
-    // this.$Progress.start()
-    // let w = screen.width;
-    // let mobile = w < 600;
-    // if (mobile) {
-    //     store.commit("toggleSideBar");
-    // }
     if (to.matched.some(record => record.meta.requiresAuth)) {
         // console.log(store.state);
         axios.get('/api/profile').then(res => {
@@ -234,7 +336,7 @@ router.beforeEach((to, from, next) => {
         if (store.state.auth) {
             if (store.state.auth.status) {
                 next({
-                    path: '/mainapp/dashboard',
+                    path: '/admin/dashboard',
                     // params: { nextUrl: to.fullPath }
                 })
             }

@@ -18,6 +18,32 @@ window.$ = require( 'jquery' );
 window.jQuery = require( 'jquery' );
 require( 'datatables.net-bs4' );
 require( 'datatables.net-responsive-bs4' );
+
+$(function() {
+    $.ajaxSetup({
+        error: function(jqXHR, exception) {
+            if (jqXHR.status === 0) {
+                alert('Not connect.\n Verify Network.');
+            }else if (jqXHR.status == 401) {
+                alert('Session Habis');
+                window.location.reload();
+            }
+            else if (jqXHR.status == 404) {
+                alert('Requested page not found. [404]');
+            } else if (jqXHR.status == 500) {
+                alert('Internal Server Error [500].');
+            } else if (exception === 'parsererror') {
+                alert('Requested JSON parse failed.');
+            } else if (exception === 'timeout') {
+                alert('Time out error.');
+            } else if (exception === 'abort') {
+                alert('Ajax request aborted.');
+            } else {
+                alert('Uncaught Error.\n' + jqXHR.responseText);
+            }
+        }
+    });
+});
 // require( 'datatables.net-fixedcolumns-bs4' );
 // require( 'datatables.net-fixedheader-bs4' );
 

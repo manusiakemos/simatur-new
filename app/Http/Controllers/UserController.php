@@ -11,6 +11,10 @@ use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
 {
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
     public function index()
     {
         return DataTables::of(User::query())
@@ -63,7 +67,39 @@ class UserController extends Controller
             : responseJson('User Gagal Dihapus');
     }
 
+    /**
+     * @param $db
+     * @param $request
+     * @return mixed
+     * @throws \Illuminate\Validation\ValidationException
+     */
     private function handleRequest($db, $request)
+    {
+        $rules = $this->rules($db, $request);
+        $this->validate($request, $rules);
+
+        $db->id = $request->id;
+        $db->name = $request->name;
+        $db->email = $request->email;
+        $db->username = $request->username;
+        $db->provider_id = $request->provider_id;
+        $db->email_verified_at = now();
+        if ($request->hasFile('file')) {
+            $filename = my_upload_file($request->file('file'));
+            $db->avatar = $filename;
+        }
+        $db->phone = $request->phone;
+        $db->role = $request->role;
+        if($request->has("password")){
+            $db->password = bcrypt($request->password);
+        }
+        $db->api_token = Str::random(100);
+        $db->remember_token = Str::random(100);
+
+        return $db->save();
+    }
+
+    private function rules($db, $request)
     {
         $rules = [
             "name" => [
@@ -97,24 +133,6 @@ class UserController extends Controller
 //                "required"
 //            ],
         ];
-        $this->validate($request, $rules);
-
-        $db->id = $request->id;
-        $db->name = $request->name;
-        $db->email = $request->email;
-        $db->username = $request->username;
-        if ($request->hasFile('file')) {
-            $filename = my_upload_file($request->file('file'));
-            $db->avatar = $filename;
-        }
-        $db->phone = $request->phone;
-        $db->role = $request->role;
-        if($request->has("password")){
-            $db->password = bcrypt($request->password);
-        }
-        $db->api_token = Str::random(100);
-        $db->remember_token = Str::random(100);
-
-        return $db->save();
+        return $rules;
     }
 }

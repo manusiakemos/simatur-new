@@ -11,6 +11,8 @@
 use Illuminate\Support\Facades\Route;
 
 Route::post('login', 'AuthController@login');
+Route::post('register', 'AuthController@register');
+Route::get('konfirmasi/{token}', 'AuthController@konfirmasi')->name('konfirmasi');
 Route::post('logout', 'AuthController@logout');
 
 Route::middleware(['auth:airlock'])->group(function () {
@@ -26,6 +28,8 @@ Route::middleware(['auth:airlock'])->group(function () {
     Route::apiResource('towerprovider', 'TowerProviderController');
     Route::apiResource('kunjungan', 'KunjunganController');
     Route::apiResource('zona', 'ZonaController');
+    Route::apiResource('permohonan', 'PermohonanController');
+    Route::get('permohonan/download/{id}', 'PermohonanController@download')->name('permohonan.download');
 });
 
 Route::any('select/{type}', 'SelectController');
@@ -51,3 +55,4 @@ if(config('app.debug')){
         \Illuminate\Support\Facades\Artisan::call('migrate');
     });
 }
+

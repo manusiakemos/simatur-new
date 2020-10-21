@@ -118,11 +118,9 @@ class TowerController extends Controller
             ],
         ];
         $this->validate($request, $rules);
-
         $db->provider_id = $request->provider_id;
         $db->kelurahan_id = $request->kelurahan_id;
         $db->tower_address = $request->tower_address;
-        $db->tower_kode = $request->tower_kode;
         $db->tower_desc = $request->tower_desc;
         $db->tower_lng = $request->tower_lng;
         $db->tower_lat = $request->tower_lat;
@@ -139,6 +137,7 @@ class TowerController extends Controller
                 $tower_id = $db->tower_id;
                 $name = Str::limit(Str::slug($provider->provider_name), 10, "");
                 $db->tower_kode = strtoupper($kelurahan_id . '-' . $name . '-' . $tower_id);
+                $db->save();
             }
         }
 

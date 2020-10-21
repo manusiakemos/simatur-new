@@ -5,7 +5,7 @@ import VuexPersistence from 'vuex-persist'
 const vuexLocal = new VuexPersistence({
     storage: window.localStorage,
     key:'master-project',
-})
+});
 
 Vue.use(Vuex);
 const store = new Vuex.Store({

@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\RegisterNotif;
+use App\Notifications\RegisterSuccessNotif;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
     use AuthenticatesUsers;
+
     /**
      * username
      *
@@ -30,9 +34,61 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $token = $this->attemptLogin($request);
-        if($token){
+        if ($token) {
             return responseJson("login success", ['token' => $token]);
         }
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
+     * @throws ValidationException
+     */
+    public function register(Request $request)
+    {
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'provider_id' => ['required'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'phone' => ['required', 'string', 'max:255', 'unique:users', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'min:10'],
+        ]);
+
+        $db = new User;
+        $db->role = "user";
+        $db->provider_id = $request->provider_id;
+        $db->name = $request->name;
+        $db->email = $request->email;
+        $db->username = $request->username;
+        $db->password = Hash::make($request->password);
+        $db->phone = $request->phone;
+        $db->api_token = Str::random(100);
+//        $db = User::find(3);
+        if($db->save()){
+            $db->notify(new RegisterNotif());
+            //kirim notif lewat email dan telegram
+            return responseJson('Cek email dan lakukan verifikasi akun');
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
+     * @throws ValidationException
+     */
+    public function konfirmasi($token)
+    {
+        $token = decrypt($token);
+        $db = User::whereApiToken($token)->firstOrFail();
+        if($db->email_verified_at != null){
+            abort('404');
+        }
+        $db->email_verified_at = now();
+        if($db->save()){
+            $db->notify(new RegisterSuccessNotif());
+        }
+        return redirect('/#pages/successregister');
     }
 
     public function logout(Request $request)
@@ -67,14 +123,14 @@ class AuthController extends Controller
             'device_name' => 'required'
         ]);
 
-        $user = User::where('username', $request->username)->whereIn('role',['super-admin','admin'])->first();
+        $user = User::where('username', $request->username)->whereIn('role', ['user'])->first();
 
-        if (! $user || ! Hash::check($request->password, $user->password)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
                 'username' => ['The provided credentials are incorrect.'],
             ]);
-        }else{
-            return  $user->createToken($request->device_name)->plainTextToken;
+        } else {
+            return $user->createToken($request->device_name)->plainTextToken;
         }
 
     }
