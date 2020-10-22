@@ -16,12 +16,12 @@ class SelectController extends Controller
             case 'arsip_tipe':
                 return [
                     [
-                        'text' => 'regulasi',
-                        'value' => 'regulasi',
+                        'text' => 'umum',
+                        'value' => 'umum',
                     ],
                     [
-                        'text' => 'lainnya',
-                        'value' => 'lainnya',
+                        'text' => 'khusus',
+                        'value' => 'khusus',
                     ]
                 ];
                 break;
