@@ -197,7 +197,7 @@
     };
 </script>
 
-<style>
+<style scoped>
     circle {
         stroke-width: 1px;
         stroke-opacity: 1;
