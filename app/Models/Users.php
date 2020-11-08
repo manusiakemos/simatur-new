@@ -49,6 +49,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $remember_toen
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users whereApiToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users whereRememberToen($value)
+ * @property int|null $provider_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users whereProviderId($value)
  */
 class Users extends Model
 {

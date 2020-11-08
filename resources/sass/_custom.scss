@@ -82,12 +82,13 @@ hr.hr-text::before {
 }
 
 .card {
-    border-radius: 30px !important;
+    border-radius: 10px !important;
+    border: none !important;
 }
 
 .breadcrumb {
-    border-radius: 30px !important;
-    background: $white !important;
+    border-radius: 10px !important;
+    background: $white;
 }
 
 .form-control,

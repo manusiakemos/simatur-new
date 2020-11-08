@@ -48,6 +48,8 @@ use Laravel\Airlock\HasApiTokens;
  * @property string|null $remember_toen
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereApiToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRememberToen($value)
+ * @property int|null $provider_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereProviderId($value)
  */
 class User extends Authenticatable implements MustVerifyEmail
 {

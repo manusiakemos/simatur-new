@@ -46,6 +46,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User withoutTrashed()
  * @mixin \Eloquent
+ * @property int|null $provider_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereProviderId($value)
  */
 class User extends Model
 {

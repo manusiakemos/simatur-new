@@ -1,6 +1,6 @@
 <template>
     <div id="weblayout">
-        <navbar></navbar>
+        <my-navbar></my-navbar>
         <router-view></router-view>
     </div>
 </template>
@@ -9,7 +9,7 @@
     import Navbar from "../../components/web/Navbar";
     export default {
         components: {
-            Navbar
+           "my-navbar" : Navbar
         }
     }
 </script>

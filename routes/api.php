@@ -50,9 +50,14 @@ Route::apiResource('tower', 'TowerController');
 Route::get('arsip/download/{slug}', 'ArsipController@download')->name('file.download');
 Route::resource('arsip', 'ArsipController');
 
+Route::get('backbone', 'BackboneController@index');
+Route::post('backbone', 'BackboneController@update');
+
 if(config('app.debug')){
     Route::get('/artisan/migrate', function(){
         \Illuminate\Support\Facades\Artisan::call('migrate');
     });
 }
 
+
+ Route::apiResource('skpd', 'SkpdController');

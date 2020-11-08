@@ -102,7 +102,7 @@
                                     if(this.authdata.data.role != 'user'){
                                         this.$router.push({path: "/admin/dashboard"});
                                     }else{
-                                        this.$router.push({path: "/webarsip"});
+                                        this.$router.push({path: "/"});
                                     }
                                 });
                             });

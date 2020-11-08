@@ -23,6 +23,16 @@
         "icon": "fa fa-archive"
     },
     {
+        "href": "/admin/backbone",
+        "title": "Backbone",
+        "icon": "fa fa-list-ul"
+    },
+    {
+        "href": "/admin/skpd",
+        "title": "Wifi SKPD",
+        "icon": "fa fa-wifi"
+    },
+    {
         "href": "/admin/permohonan",
         "title": "Permohonan",
         "icon": "fa fa-file-archive"
@@ -40,12 +50,12 @@
     {
         "href": "/admin/tower",
         "title": "Tower",
-        "icon": "fa fa-list-alt"
+        "icon": "fa fa-podcast "
     },
     {
         "href": "/admin/kunjungan",
         "title": "Kunjungan",
-        "icon": "fa fa-list-alt"
+        "icon": "fa fa-check"
     },
     {
         "title": "Admin Area",

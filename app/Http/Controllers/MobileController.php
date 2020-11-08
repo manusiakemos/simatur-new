@@ -11,6 +11,12 @@ use Illuminate\Http\Request;
 
 class MobileController extends Controller
 {
+    public function __construct()
+    {
+        if (array_key_exists('HTTP_AUTHORIZATION', $_SERVER)) {
+            $this->middleware('auth:airlock');
+        }
+    }
     /**
      * @param Request $request
      * @param $case
@@ -26,11 +32,7 @@ class MobileController extends Controller
 
             //ambil semua arsip
             case "arsip":
-                if(auth()->check()){
-                    $arsip = Arsip::all();
-                }else{
-                    $arsip = Arsip::where('arsip_tipe','umum')->get();
-                }
+                $arsip = auth()->check() ? Arsip::all() : Arsip::where('arsip_tipe', 'umum')->get();
                 return $arsip;
                 break;
 

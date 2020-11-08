@@ -40,6 +40,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Permohonan withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Permohonan withoutTrashed()
  * @mixin \Eloquent
+ * @property string|null $p_keterangan
+ * @property string|null $p_alamat
+ * @property string|null $p_file
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permohonan joinData()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permohonan wherePAlamat($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permohonan wherePFile($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permohonan wherePKeterangan($value)
  */
 class Permohonan extends Model
 {
