@@ -35,12 +35,6 @@
     </div>
 </template>
 
-<style scoped>
-    .small {
-        max-height: 500px;
-    }
-</style>
-
 
 <script>
     import BarChart from './BarChart.vue'

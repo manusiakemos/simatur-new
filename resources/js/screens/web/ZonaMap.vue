@@ -22,7 +22,3 @@
         components: {ZonaMapApi}
     }
 </script>
-
-<style scoped>
-
-</style>

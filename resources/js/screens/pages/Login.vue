@@ -48,12 +48,6 @@
     </div>
 </template>
 
-<style scoped>
-    .form-control{
-        border-radius: 30px !important;
-    }
-</style>
-
 <script>
     export default {
         name: 'Login',

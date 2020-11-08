@@ -27,20 +27,3 @@
         name: "WebHome"
     }
 </script>
-
-<style scoped>
-    .playstore {
-        width: 200px;
-    }
-
-    #mockup-image {
-        max-height: 80vh;
-    }
-
-    #text-logo {
-        padding-top: 10%;
-        height: 100%;
-        flex: 1;
-        align-items: center;
-    }
-</style>

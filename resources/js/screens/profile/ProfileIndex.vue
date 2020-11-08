@@ -204,22 +204,3 @@
         },
     }
 </script>
-
-<style scoped>
-    .wrapper-avatar {
-        position: relative;
-    }
-
-    .avatar-overlay {
-        opacity: 0;
-        position: absolute;
-        width: 300px;
-        height: 300px;
-        top: 0%;
-        left: 0%;
-    }
-    .avatar-overlay:hover {
-        opacity:1;
-        background: rgba(0, 0, 0, 0.5);
-    }
-</style>

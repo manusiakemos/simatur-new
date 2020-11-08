@@ -22,7 +22,3 @@
         components: {TowerMapApi}
     }
 </script>
-
-<style scoped>
-
-</style>

@@ -71,18 +71,6 @@
     </div>
 </template>
 
-<style scoped>
-    #abs {
-        position: fixed;
-        top: 80px;
-        z-index: 666;
-    }
-
-    body {
-        overflow: hidden !important;
-    }
-</style>
-
 <script>
     // const width = window.innerWidth;
     // const height = window.innerHeight;

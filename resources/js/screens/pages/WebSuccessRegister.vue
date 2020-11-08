@@ -18,7 +18,3 @@
         name: "WebSuccessRegister"
     }
 </script>
-
-<style scoped>
-
-</style>

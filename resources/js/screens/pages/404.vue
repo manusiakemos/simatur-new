@@ -18,7 +18,3 @@
         name: "404"
     }
 </script>
-
-<style scoped>
-
-</style>
