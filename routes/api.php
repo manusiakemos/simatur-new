@@ -15,7 +15,7 @@ Route::post('register', 'AuthController@register');
 Route::get('konfirmasi/{token}', 'AuthController@konfirmasi')->name('konfirmasi');
 Route::post('logout', 'AuthController@logout');
 
-Route::middleware(['auth:airlock'])->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
     /*base route*/
     Route::get('profile', 'ProfileController@edit')->name('profile.edit');
     Route::put('profile', 'ProfileController@update')->name('profile.update');

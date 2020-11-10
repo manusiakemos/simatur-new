@@ -81,7 +81,7 @@
         },
         methods: {
             login() {
-                this.axios.get('/airlock/csrf-cookie').then(res => {
+                this.axios.get('/sanctum/csrf-cookie').then(res => {
                     this.axios.post('/login', this.data).then(res => {
                         if(res.status == 204){
                             this.authdata.status = true;
