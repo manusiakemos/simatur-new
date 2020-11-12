@@ -14,7 +14,7 @@ class ArsipController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:airlock')->except('download');
+        $this->middleware('auth:sanctum')->except('download');
     }
 
     public function download($slug)

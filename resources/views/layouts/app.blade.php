@@ -8,7 +8,7 @@
     <title>{{config("app.name")}}</title>
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"/>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet'/>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}?version=2.1">
 </head>
 
@@ -18,7 +18,8 @@
         <router-view></router-view>
     </transition>
 </div>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7R6gDLqkVN6FvMZW89hqFlfLq7u9cHfI&libraries=places"></script>
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7R6gDLqkVN6FvMZW89hqFlfLq7u9cHfI&libraries=places"></script>
 @if(config('app.env') == 'local')
     <script src="{{ mix('js/app.js') }}"></script>
 @else

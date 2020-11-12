@@ -1,6 +1,6 @@
 <template>
-    <div class="d-flex align-items-center justify-content-center h100vh">
-        <b-card class="w-lg-50 p-4">
+    <div class="d-flex align-items-center justify-content-center">
+        <b-card>
             <div>
                 <div class="d-flex justify-content-center">
                     <router-link to="/">
@@ -10,7 +10,7 @@
                 <h4 class="mb-3 mt-1 text-center text-uppercase">
                     {{$store.state.appName}} Kabupaten Tabalong
                 </h4>
-                <form action="/api/login" type="POST" v-on:submit.prevent="register">
+                <form action="/api/login" type="POST" v-on:submit.prevent="register" class="p-3">
                     <b-form-group
                         placeholder="name"
                         label-for="name"
