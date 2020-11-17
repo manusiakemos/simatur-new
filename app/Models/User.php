@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;;
 
 /**
  * App\Models\User
@@ -51,7 +52,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class User extends Model
 {
-//    use SoftDeletes;
+    //    use SoftDeletes;
+
+    use HasFactory;
 
     protected $primaryKey = "id";
     protected $table = "users";
@@ -80,6 +83,4 @@ class User extends Model
     }
 
     protected $appends = ['links'];
-
-
 }

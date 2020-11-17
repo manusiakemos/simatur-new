@@ -1,0 +1,31 @@
+{
+    "remotePath": "./public_html/",
+    "host": "simatur.tabalongkab.go.id",
+    "username": "simaturtabalong",
+    "password": "s4mpo3rn4",
+    "port": 21,
+    "secure": false,
+    "protocol": "ftp",
+    "uploadOnSave": false,
+    "passive": false,
+    "debug": false,
+    "privateKeyPath": null,
+    "passphrase": null,
+    "agent": null,
+    "allow": [],
+    "ignore": [
+        "\\.vscode",
+        "\\.git",
+        "\\.DS_Store",
+        "\\vendor",
+        "\\public\\images",
+        "\\public\\uploads"
+    ],
+    "generatedFiles": {
+        "uploadOnSave": false,
+        "extensionsToInclude": [
+            ""
+        ],
+        "path": ""
+    }
+}

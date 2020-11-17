@@ -64,8 +64,8 @@ class AuthController extends Controller
         $db->password = Hash::make($request->password);
         $db->phone = $request->phone;
         $db->api_token = Str::random(100);
-//        $db = User::find(3);
-        if($db->save()){
+        //        $db = User::find(3);
+        if ($db->save()) {
             $db->notify(new RegisterNotif());
             //kirim notif lewat email dan telegram
             return responseJson('Cek email dan lakukan verifikasi akun');
@@ -81,11 +81,11 @@ class AuthController extends Controller
     {
         $token = decrypt($token);
         $db = User::whereApiToken($token)->firstOrFail();
-        if($db->email_verified_at != null){
+        if ($db->email_verified_at != null) {
             abort('404');
         }
         $db->email_verified_at = now();
-        if($db->save()){
+        if ($db->save()) {
             $db->notify(new RegisterSuccessNotif());
         }
         return redirect('/#pages/successregister');
@@ -123,7 +123,7 @@ class AuthController extends Controller
             'device_name' => 'required'
         ]);
 
-        $user = User::where('username', $request->username)->whereIn('role', ['user'])->first();
+        $user = User::where('username', $request->username)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
@@ -132,7 +132,6 @@ class AuthController extends Controller
         } else {
             return $user->createToken($request->device_name)->plainTextToken;
         }
-
     }
 
     /**
