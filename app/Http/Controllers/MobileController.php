@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class MobileController extends Controller
 {
 
-    //test1
+    //test2
     public function __construct()
     {
         if (array_key_exists('HTTP_AUTHORIZATION', $_SERVER)) {
