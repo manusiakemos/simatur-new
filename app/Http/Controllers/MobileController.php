@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 
 class MobileController extends Controller
 {
+
+    //testl
     public function __construct()
     {
         if (array_key_exists('HTTP_AUTHORIZATION', $_SERVER)) {
@@ -26,17 +28,17 @@ class MobileController extends Controller
     {
         switch ($case) {
             case "test-notif":
-                $user = User::where('email','manusiakemos@gmail.com')->first();
+                $user = User::where('email', 'manusiakemos@gmail.com')->first();
                 return $user->notify(new RegisterSuccessNotif());
                 break;
 
-            //ambil semua arsip
+                //ambil semua arsip
             case "arsip":
                 $arsip = auth()->check() ? Arsip::all() : Arsip::where('arsip_tipe', 'umum')->get();
                 return $arsip;
                 break;
 
-            //api data tower
+                //api data tower
             case "tower":
                 !isset($request->perpage) ? $perpage = 10 : $perpage = $request->perpage;
                 $query_tower = Tower::with(['provider']);
@@ -52,7 +54,7 @@ class MobileController extends Controller
                 break;
 
 
-             //ambil data kunjungan
+                //ambil data kunjungan
             case "kunjungan":
                 isset($request->year) ? $year = $request->year : $year = date("Y");
                 $kunjungan = Kunjungan::whereYear("kunjungan_tanggal", $year)->get();
