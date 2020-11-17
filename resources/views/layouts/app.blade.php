@@ -23,7 +23,7 @@
 @if(config('app.env') == 'local')
     <script src="{{ mix('js/app.js') }}"></script>
 @else
-    <script src="{{ asset('js/app.js') }}?version=2.2"></script>
+    <script src="{{ asset('js/app.js') }}?version=2.3"></script>
 @endif
 </body>
 
