@@ -7,9 +7,11 @@
 
     <title>{{config("app.name")}}</title>
     <!-- Styles -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Quattrocento&family=Roboto+Slab:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"/>
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet'/>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}?version=2.1">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}?version=2.5">
 </head>
 
 <body>
@@ -23,7 +25,7 @@
 @if(config('app.env') == 'local')
     <script src="{{ mix('js/app.js') }}"></script>
 @else
-    <script src="{{ asset('js/app.js') }}?version=2.3"></script>
+    <script src="{{ asset('js/app.js') }}?version=2.4"></script>
 @endif
 </body>
 

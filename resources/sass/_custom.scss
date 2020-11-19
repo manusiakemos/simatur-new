@@ -188,3 +188,14 @@ select.form-control:not([size]):not([multiple]),
 .scroll-area {
     height: 100vh;
 }
+
+#print{
+    font-family: $font-family-serif !important;
+    table{
+        font-family: $font-family-serif !important;
+    }
+
+    h4{
+        font-family: 'Quattrocento', serif !important;
+    }
+}

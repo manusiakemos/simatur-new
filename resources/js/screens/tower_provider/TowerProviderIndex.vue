@@ -40,7 +40,7 @@
                    </h6>
                 </div>
                 <div v-if="data_print" id="print" class="d-none d-print-block">
-                    <h4 class="text-center text-capitalize">Report tower provider</h4>
+                    <h4 class="text-center text-capitalize">Laporan tower provider</h4>
                     <h6 class="display-6">
                         {{tower.tower_kode}} : {{tower.tower_address}}
                     </h6>

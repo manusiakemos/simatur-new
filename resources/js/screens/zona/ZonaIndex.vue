@@ -60,7 +60,7 @@
                     </b-form-group>
                 </div>
                 <div v-if="data_print" id="print" class="d-none d-print-block">
-                    <h4 class="text-center text-capitalize">Report zona</h4>
+                    <h4 class="text-center text-capitalize">Laporan zona</h4>
                     <table class="table table-bordered">
                         <thead class="bg-primary text-white">
                         <tr>

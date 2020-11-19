@@ -27,7 +27,7 @@
                     </b-btn>
                 </div>
                 <div v-if="data_print" id="print" class="d-none d-print-block">
-                    <h4 class="text-center text-capitalize">Report arsip</h4>
+                    <h4 class="text-center text-capitalize">Laporan Data Arsip</h4>
                     <table class="table table-bordered">
                         <thead class="bg-primary text-white">
                         <tr>
@@ -201,8 +201,8 @@
                     columns: [
                         {name: "arsip_name", print: true, title: "Nama Arsip", data: "arsip_name", class: "auto"},
                         {name: "arsip_tipe", print: true, title: "Tipe Arsip", data: "arsip_tipe", class: "auto"},
-                        {name: "arsip_file", print: true, title: "File", data: "arsip_file", class: "auto"},
-                        {name: "arsip_slug", print: true, title: "Slug", data: "arsip_slug", class: "auto"},
+                        {name: "arsip_file", print: false, title: "File", data: "arsip_file", class: "auto"},
+                        {name: "arsip_slug", print: false, title: "Slug", data: "arsip_slug", class: "auto"},
                         {title: "Action", data: "action", class: "text-center w-25 all"}
                     ]
                 },

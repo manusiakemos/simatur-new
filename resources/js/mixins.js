@@ -165,5 +165,23 @@ export default {
                     this.$router.push({path: '/'});
                 });
         },
+        stringifyQuery(url, objectData) {
+            return url + '?' + queryString.stringify(objectData);
+        },
+        getStringDate(d = null) {
+            if (d == null || d == "") {
+                var date = new Date();
+            } else {
+                var date = new Date(d);
+            }
+            var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
+                .toISOString()
+                .split("T")[0];
+            return dateString;
+        },
+        currentYear() {
+            let d = new Date();
+            return d.getFullYear().toString();
+        }
     },
 };

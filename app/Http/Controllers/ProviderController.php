@@ -21,6 +21,9 @@ class ProviderController extends Controller
             ->editColumn('provider_operator', function (Provider $value) {
                 return boolean_text($value->provider_operator, "Ya", "Tidak");
             })
+            ->editColumn('provider_type', function (Provider $value) {
+                return str_replace("_", " ", $value->provider_type);
+            })
             ->editColumn('is_komersil', function (Provider $value) {
                 return boolean_text($value->is_komersil, "Komersil", "Non Komersil");
             })

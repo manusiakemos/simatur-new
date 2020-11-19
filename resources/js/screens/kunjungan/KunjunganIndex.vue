@@ -32,26 +32,6 @@
                         <my-date-picker placeholder="Tahun" type="year" v-model="tahun" format="YYYY"></my-date-picker>
                     </b-form-group>
                 </div>
-
-                <div v-if="data_print" id="print" class="d-none d-print-block">
-                    <h4 class="text-center text-capitalize">Report kunjungan</h4>
-                    <table class="table table-bordered">
-                        <thead class="bg-primary text-white">
-                        <tr>
-                            <th v-for="(v,i) in configDt.columns" v-if="v.print" :class="v.class">
-                                {{v.title}}
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr v-for="(value,index) in data_print.data">
-                            <td v-for="(v,i) in configDt.columns" v-if="v.print" :class="v.class">
-                                {{value[v.data]}}
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
                 <datatables
                     :config-dt="configDt"
                     selector="dt-kunjungan"
@@ -59,6 +39,29 @@
                 </datatables>
             </b-card>
         </div>
+
+        <div class="col-12">
+            <div v-if="data_print" id="print" class="d-none d-print-block">
+                <h4 class="text-center text-capitalize">Laporan kunjungan</h4>
+                <table class="table table-bordered">
+                    <thead class="bg-primary text-white">
+                    <tr>
+                        <th v-for="(v,i) in configDt.columns" v-if="v.print" :class="v.class">
+                            {{v.title}}
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(value,index) in data_print.data">
+                        <td v-for="(v,i) in configDt.columns" v-if="v.print" :class="v.class">
+                            {{value[v.data]}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <div class="col-12">
             <b-modal :title="modal_title"
                      header-bg-variant="primary"
@@ -238,7 +241,7 @@
                     ]
                 },
                 file: null,
-                tahun: null,
+                tahun: this.currentYear(),
             }
         },
         methods: {
