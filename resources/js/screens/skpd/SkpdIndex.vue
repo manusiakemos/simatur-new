@@ -27,7 +27,8 @@
                     </b-btn>
                 </div>
                 <div v-if="data_print" id="print" class="d-none d-print-block">
-                    <h4 class="text-center text-capitalize">Laporan skpd</h4>
+                    <report-heading></report-heading>
+                    <h4 class="text-center text-capitalize">Laporan Hotspot</h4>
                     <table class="table table-bordered">
                         <thead class="bg-primary text-white">
                         <tr>
@@ -175,10 +176,10 @@
         },
         data: function () {
             return {
-                title: 'Skpd Datatable',
+                title: 'Hotspot Datatable',
                 action: 'store',
                 show_modal: false,
-                modal_title: 'Tambah Skpd',
+                modal_title: 'Tambah Hotspot',
                 data: {
                     skpd_id: "",
                     skpd_nama: "",

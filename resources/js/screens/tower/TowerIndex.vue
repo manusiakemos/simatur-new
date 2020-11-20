@@ -53,13 +53,8 @@
         <div class="col-12">
             <div v-if="data_print" id="print" class="d-none d-print-block">
                 <div class="text-center">
-                    <!--<div class="d-flex justify-content-between align-items-center">
-                        <img src="/images/tabalong.png" alt="tabalong" class="logo" height="60">
-                        <h4>SIMATUR KABUPATEN TABALONG</h4>
-                        <img src="/images/kominfo.png" alt="kominfo" class="logo" height="60">
-                    </div>
-                    <hr>-->
-                    <h6 class="text-center text-capitalize mt-3">Laporan Data tower</h6>
+                    <report-heading></report-heading>
+                    <h4 class="text-center text-uppercase mt-3">Laporan Data tower</h4>
                 </div>
                 <table class="table table-bordered">
                     <thead class="bg-primary text-white">

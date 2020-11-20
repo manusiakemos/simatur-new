@@ -28,8 +28,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('towerprovider', 'TowerProviderController');
     Route::apiResource('kunjungan', 'KunjunganController');
     Route::apiResource('zona', 'ZonaController');
-    Route::apiResource('permohonan', 'PermohonanController');
+
     Route::get('permohonan/download/{id}', 'PermohonanController@download')->name('permohonan.download');
+    Route::apiResource('permohonan', 'PermohonanController');
+
+    Route::apiResource('skpd', 'SkpdController');
+
+    Route::get('backbone', 'BackboneController@index');
+    Route::post('backbone', 'BackboneController@update');
+
 });
 
 Route::any('select/{type}', 'SelectController');
@@ -43,15 +50,11 @@ Route::post('map', 'MapController@towerProvider');
 Route::any('mobile/{case}', 'MobileController');
 
 //controller middleware
-
 Route::apiResource('tower', 'TowerController');
 
 
 Route::get('arsip/download/{slug}', 'ArsipController@download')->name('file.download');
 Route::resource('arsip', 'ArsipController');
-
-Route::get('backbone', 'BackboneController@index');
-Route::post('backbone', 'BackboneController@update');
 
 if(config('app.debug')){
     Route::get('/artisan/migrate', function(){
@@ -60,4 +63,3 @@ if(config('app.debug')){
 }
 
 
- Route::apiResource('skpd', 'SkpdController');

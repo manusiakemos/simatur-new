@@ -27,7 +27,8 @@
                     </b-btn>
                 </div>
                 <div v-if="data_print" id="print" class="d-none d-print-block">
-                    <h4 class="text-center text-capitalize">Laporan provider</h4>
+                    <report-heading></report-heading>
+                    <h4 class="text-center text-uppercase mt-3">Laporan provider</h4>
                     <table class="table table-bordered">
                         <thead class="bg-primary text-white">
                         <tr>

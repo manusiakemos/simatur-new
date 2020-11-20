@@ -42,7 +42,10 @@
 
         <div class="col-12">
             <div v-if="data_print" id="print" class="d-none d-print-block">
-                <h4 class="text-center text-capitalize">Laporan kunjungan</h4>
+                <div class="text-center">
+                    <report-heading></report-heading>
+                    <h4 class="text-center text-uppercase">Laporan kunjungan</h4>
+                </div>
                 <table class="table table-bordered">
                     <thead class="bg-primary text-white">
                     <tr>

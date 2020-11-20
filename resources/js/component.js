@@ -43,6 +43,10 @@ Vue.component('my-date-picker', MyDatePicker);
 
 import MyMoney from "./components/MyMoneyr";
 Vue.component('my-money', MyMoney);
+
+import ReportHeading from "./components/ReportHeading";
+Vue.component('report-heading', ReportHeading);
+
 import RadioAjax from "./components/RadioAjax";
 Vue.component('radio-ajax', RadioAjax);
 

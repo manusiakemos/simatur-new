@@ -189,8 +189,10 @@ select.form-control:not([size]):not([multiple]),
     height: 100vh;
 }
 
-#print{
-    font-family: $font-family-serif !important;
+@media print {
+    body{
+        font-family: $font-family-serif !important;
+    }
     table{
         font-family: $font-family-serif !important;
     }

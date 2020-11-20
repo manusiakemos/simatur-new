@@ -131,9 +131,12 @@ class PermohonanController extends Controller
                     "required"
                 ]
             ];
-            $rules->merge($rulesnya);
+            $rules = $rules->merge($rulesnya);
         }
 
+        if(!isset($db->p_id)){
+            $rules = $rules->merge(["p_file" => "required"]);
+        }
         $this->validate($request, $rules->all());
 
         if(!isset($db->p_id)){
