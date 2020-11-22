@@ -63,6 +63,7 @@ class SkpdController extends Controller
 
     private function handleRequest($db, $request)
     {
+//        dd($request->all());
         $rules = [
             "skpd_nama" => [
                 "required"
@@ -82,6 +83,12 @@ class SkpdController extends Controller
 //            "skpd_keterangan" => [
 //                "required"
 //            ],
+            "skpd_lat" => [
+                "required"
+            ],
+            "skpd_lng" => [
+                "required"
+            ],
         ];
         $this->validate($request, $rules);
 

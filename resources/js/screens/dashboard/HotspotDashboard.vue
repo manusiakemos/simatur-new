@@ -16,7 +16,7 @@
                 <b-tabs content-class="mt-3">
                     <b-tab title="Ping Monitoring" active lazy>
                         <div class="row">
-                            <div class="col-lg-3" v-for="(v,i) in hotspot.data" :key="i">
+                            <div class="col-lg-3 mb-3" v-for="(v,i) in hotspot.data" :key="i">
                                 <b-card no-title class="shadow-sm">
                                     <div class="d-flex justify-content-between">
                                         <h6 class="display-6 text-primary">{{v.skpd_ip}}</h6>
