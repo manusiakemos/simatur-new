@@ -13,6 +13,18 @@ class SelectController extends Controller
     public function __invoke(Request $request, $type)
     {
         switch ($type) {
+            case 'hotspot_tipe':
+                return [
+                    [
+                        'text' => 'SKPD',
+                        'value' => 'skpd',
+                    ],
+                    [
+                        'text' => 'Hotspot',
+                        'value' => 'hotspot',
+                   ]
+                ];
+                break;
             case 'shape':
                 return [
                     [

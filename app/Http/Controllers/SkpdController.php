@@ -76,9 +76,9 @@ class SkpdController extends Controller
 //            "skpd_tipe" => [
 //                "required"
 //            ],
-            "skpd_kode" => [
-                "required"
-            ],
+//            "skpd_kode" => [
+//                "required"
+//            ],
 //            "skpd_keterangan" => [
 //                "required"
 //            ],
@@ -87,6 +87,8 @@ class SkpdController extends Controller
 
         $db->skpd_nama = $request->skpd_nama;
         $db->skpd_status = $request->skpd_status;
+        $db->skpd_lat = $request->skpd_lat;
+        $db->skpd_lng = $request->skpd_lng;
         $db->skpd_ip = $request->skpd_ip;
         $db->skpd_tipe = $request->skpd_tipe;
         $db->skpd_kode = $request->skpd_kode;

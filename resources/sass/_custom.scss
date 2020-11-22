@@ -193,7 +193,8 @@ select.form-control:not([size]):not([multiple]),
     body{
         font-family: $font-family-serif !important;
     }
-    table{
+    table, td, th{
+        color: #0d0d1d !important;
         font-family: $font-family-serif !important;
     }
 

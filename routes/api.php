@@ -15,6 +15,10 @@ Route::post('register', 'AuthController@register');
 Route::get('konfirmasi/{token}', 'AuthController@konfirmasi')->name('konfirmasi');
 Route::post('logout', 'AuthController@logout');
 
+Route::post('dashboard/ping', 'DashboardController@ping');
+Route::post('dashboard/pinglocal/{skpd_id}', 'DashboardController@pinglocal');
+Route::post('dashboard/hotspot/{tipe?}', 'DashboardController@listWifi');
+
 Route::middleware(['auth:sanctum'])->group(function () {
     /*base route*/
     Route::get('profile', 'ProfileController@edit')->name('profile.edit');

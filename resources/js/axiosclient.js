@@ -27,7 +27,7 @@ axiosInstance.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
     // console.error(error);
-    alert(error.response.data.message);
+    console.log(error.response.data.message);
     if (error.response.status == 401 || error.response.status == 419) {
         var data = {
             "status": false,

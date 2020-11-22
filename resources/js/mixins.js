@@ -20,6 +20,7 @@ export default {
             if (orientation == 'landscape') {
                 var localOptions = {
                     styles: [
+                        'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Quattrocento&family=Roboto+Slab:wght@300&display=swap',
                         '/css/app.css',
                         '/css/landscape.css'
                     ]
@@ -27,6 +28,7 @@ export default {
             } else {
                 var localOptions = {
                     styles: [
+                        'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Quattrocento&family=Roboto+Slab:wght@300&display=swap',
                         '/css/app.css',
                     ]
                 };
@@ -125,7 +127,7 @@ export default {
 
             for (var key in data) {
                 var d = data[key];
-                if (d != 'null') {
+                if (d != 'null' && d) {
                     form_data.append(key, d);
                 }
             }

@@ -14,6 +14,10 @@
             {
                 "href": "/admin/dashboardzona",
                 "title": "Zona"
+            },
+            {
+                "href": "/admin/dashboardhotspot",
+                "title": "Hotspot"
             }
         ]
     },
@@ -29,7 +33,7 @@
     },
     {
         "href": "/admin/skpd",
-        "title": "Wifi SKPD",
+        "title": "Hotspot",
         "icon": "fa fa-wifi"
     },
     {

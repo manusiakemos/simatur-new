@@ -120,6 +120,15 @@ const routes = [
                     }
                 },
                 {
+                    path: '/admin/dashboardhotspot',
+                    name: 'HotspotDashboard',
+                    component: () => import("./screens/dashboard/HotspotDashboard"),
+                    meta: {
+                        requiresAuth: true,
+                        role: 'admin|super-admin'
+                    }
+                },
+                {
                     path: '/admin/crud',
                     name: 'Crud',
                     component: () => import( "./screens/dashboard/Crud"),

@@ -48,11 +48,16 @@ class Skpd extends Model
     protected $table = "tb_skpd";
 
     public function getLinksAttribute()
-{
-    return generate_links_api("skpd", $this->attributes[$this->primaryKey]);
-}
+    {
+        return generate_links_api("skpd", $this->attributes[$this->primaryKey]);
+    }
 
-    protected $appends = ['links'];
+    public function getDetailsAttribute()
+    {
+        return null;
+    }
 
-    
+    protected $appends = ['links', 'details'];
+
+
 }

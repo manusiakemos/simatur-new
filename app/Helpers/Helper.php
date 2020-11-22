@@ -274,3 +274,33 @@ function template_view($view, $variables=[])
     return view($path);
 }
 
+function checkIp($ip, $port = 80){
+    $url = $ip . ':' . $port;
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_exec($ch);
+    $health = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $info = curl_getinfo($ch);
+
+    $ms = ping($ip);
+    curl_close($ch);
+    if ($health) {
+        $json = ['health' => $health, 'status' => '1', 'latency' => $ms, 'info' => $info];
+        return $json;
+    } else {
+        $json = ['health' => $health, 'status' => '0', 'latency' => $ms, 'info' => $info];
+        return $json;
+    }
+}
+
+function ping($host, $port = 80, $timeout = 60) {
+    $tB = microtime(true);
+    $fP = fSockOpen($host, $port, $errno, $errstr, $timeout);
+    if (!$fP) { return "down"; }
+    $tA = microtime(true);
+    return round((($tA - $tB) * 1000), 0)." ms";
+}
+
+
