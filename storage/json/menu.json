@@ -27,11 +27,6 @@
         "icon": "fa fa-archive"
     },
     {
-        "href": "/admin/backbone",
-        "title": "Backbone",
-        "icon": "fa fa-list-ul"
-    },
-    {
         "href": "/admin/skpd",
         "title": "Hotspot",
         "icon": "fa fa-wifi"

@@ -15,6 +15,7 @@
            <b-collapse id="navbar-toggle-collapse" is-nav v-model="isOpen" :class="isOpen ? 'bg-white' : ''">
                <b-navbar-nav class="p-4">
                    <b-nav-item :to="{name:'WebHome'}">Beranda</b-nav-item>
+                   <b-nav-item :to="{name:'WebHotspot'}">Hotspot</b-nav-item>
                    <b-nav-item v-if="auth.status" :to="{name:'WebListPermohonan'}">Permohanan Rekomendasi</b-nav-item>
                    <b-nav-item :to="{name:'WebArsip'}">Arsip</b-nav-item>
                    <b-nav-item :to="{name:'TowerMap'}">Peta Tower</b-nav-item>

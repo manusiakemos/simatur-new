@@ -1,11 +1,11 @@
 import Vue from "vue"
 import Vuex from 'vuex';
-import VuexPersistence from 'vuex-persist'
+// import VuexPersistence from 'vuex-persist'
 
-const vuexLocal = new VuexPersistence({
-    storage: window.localStorage,
-    key:'master-project',
-});
+// const vuexLocal = new VuexPersistence({
+//     storage: window.localStorage,
+//     key:'master-project',
+// });
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
@@ -52,8 +52,8 @@ const store = new Vuex.Store({
         toggleSideBar(state){
             state.showSidebar = !state.showSidebar;
         }
-    },
-    plugins: [vuexLocal.plugin]
+    }
+    // plugins: [vuexLocal.plugin]
 });
 
 export default store;

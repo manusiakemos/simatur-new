@@ -145,26 +145,29 @@ export default {
         logout() {
             this.$dialog.confirm('Apakah Kamu Yakin?')
                 .then(() => {
-                    this.axios.post('/logout');
-                    this.makeToast("Logout");
-                    this.$store.commit('setAuth', {
-                        "status": false,
-                        "token": "",
-                        "data": {
-                            "name": "",
-                            "username": "",
-                            "password": "",
-                            "password_confirmation": "",
-                            "avatar": "",
-                            "role": "",
-                            "links": {
-                                "update": "",
-                                "edit": "",
-                                "avatar": ""
+                    this.axios.post('/logout').then(res=>{
+                        this.makeToast("Logout");
+                        this.$store.commit('setAuth', {
+                            "status": false,
+                            "token": "",
+                            "data": {
+                                "name": "",
+                                "username": "",
+                                "password": "",
+                                "password_confirmation": "",
+                                "avatar": "",
+                                "role": "",
+                                "links": {
+                                    "update": "",
+                                    "edit": "",
+                                    "avatar": ""
+                                }
                             }
-                        }
+                        });
+                        this.$nextTick(()=>{
+                            this.$router.push({path: '/'});
+                        });
                     });
-                    this.$router.push({path: '/'});
                 });
         },
         stringifyQuery(url, objectData) {
