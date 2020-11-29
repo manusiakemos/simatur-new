@@ -36,7 +36,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('permohonan/download/{id}', 'PermohonanController@download')->name('permohonan.download');
     Route::apiResource('permohonan', 'PermohonanController');
 
-    Route::apiResource('skpd', 'SkpdController');
+    Route::apiResource('skpd', 'HotspotController');
 
     Route::get('backbone', 'BackboneController@index');
     Route::post('backbone', 'BackboneController@update');

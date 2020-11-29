@@ -8,7 +8,7 @@ use Yajra\DataTables\DataTables;
 
 //use App\Http\Resources\SkpdResource;
 
-class SkpdController extends Controller
+class HotspotController extends Controller
 {
     public function index()
     {

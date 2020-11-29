@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 function my_upload_file($file, $path="uploads/images")
@@ -274,7 +275,7 @@ function template_view($view, $variables=[])
     return view($path);
 }
 
-function checkIp($ip, $port = 80){
+function checkIpBackup($ip, $port = 80){
     $url = $ip . ':' . $port;
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_TIMEOUT, 5);
@@ -293,6 +294,14 @@ function checkIp($ip, $port = 80){
         $json = ['health' => $health, 'status' => '0', 'latency' => $ms, 'info' => $info];
         return $json;
     }
+}
+
+function checkIp($ip, $port){
+    $url = $ip . ':' . $port;
+    $response = Http::post("http://114.7.165.66:15080/cekip.php", [
+        'tujuan' => $url,
+    ]);
+    return $response;
 }
 
 function ping($host, $port = 80, $timeout = 60) {

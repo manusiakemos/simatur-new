@@ -1,5 +1,6 @@
 // vuex
 import store from './store'
+import axiosInstance from "./axiosclient";
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -175,11 +176,12 @@ const routes = [
                 {
                     path: '/webhome',
                     name: 'WebHome',
-                    component: () => import("./screens/web/WebHome.vue"),
-                    meta: {
-                        requiresAuth: false,
-                        redirectIfAuth: true,
-                    }
+                    component: () => import("./screens/web/WebHome.vue")
+                },
+                {
+                    path: '/webhotspot',
+                    name: 'WebHotspot',
+                    component: () => import("./screens/web/Hotspot")
                 },
                 {
                     path: '/weblistpermohanan',
@@ -288,47 +290,50 @@ router.afterEach((to, from) => {
 router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
         // console.log(store.state);
-        axios.get('/api/profile').then(res => {
+        axiosInstance.get('/api/profile').then(res => {
+            console.log('success');
         }).catch(err => {
-            alert('session kadaluarsa');
-            next({path: '/pages/login',})
-        });
+            console.log('session kadaluarsa');
+            axiosInstance.post('/logout').then(res=>{
 
-        if (!store.state.auth) {
-            next({path: '/pages/login',})
-        } else {
-            let auth = store.state.auth;
-            if (auth.status == false) {
-                // alert('session kadaluarsa');
-                next({path: '/pages/login'})
-            } else {
-                if (to.matched.some(record => record.meta.role)) {
-                    let userRole = auth.data.role;
-                    let metaRole = to.meta.role;
-                    let splitMetaRole = metaRole.split('|');
-                    if (splitMetaRole.indexOf(userRole) > -1) {
-                        next()
-                    } else {
-                        next({path: '/pages/404'});
+                this.$store.commit("setAuth", {
+                    "status": false,
+                    "token": "",
+                    "data": {
+                        "id": "",
+                        "name": "",
+                        "username": "",
+                        "password": "",
+                        "password_confirmation": "",
+                        "avatar": "",
+                        "role": "",
+                        "links": {
+                            "update": "",
+                            "edit": "",
+                            "avatar": ""
+                        }
                     }
-                }
-                next();
-            }
-        }
-    }
-    else if (to.matched.some(record => record.meta.redirectIfAuth)) {
-        if (store.state.auth.status) {
-            if (store.state.auth.status && store.state.auth.data.role == 'super-admin') {
-                next({
-                    path: '/admin/dashboard',
-                })
+                });
+
+                this.$nextTick(()=>{
+                    next({path: '/',})
+                });
+            });
+        });
+        if (to.matched.some(record => record.meta.role)) {
+            let auth = store.state.auth;
+            let userRole = auth.data.role;
+            let metaRole = to.meta.role;
+            let splitMetaRole = metaRole.split('|');
+            if (splitMetaRole.indexOf(userRole) > -1) {
+                next()
             } else {
-                next();
+                next({path: '/pages/404'});
             }
-        } else {
-            next()
         }
-    } else {
+        next();
+    }
+    else {
         next();
     }
 });

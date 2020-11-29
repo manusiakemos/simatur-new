@@ -77,6 +77,10 @@ class ArsipController extends Controller
 
     private function handleRequest($db, $request)
     {
+//        ini_set('memory_limit', -1);
+//        ini_set('max_file_uploads', '16M');
+//        ini_set('post_max_size','16M');
+
         $rules = [
             "arsip_name" => [
                 "required"
