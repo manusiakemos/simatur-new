@@ -28,8 +28,7 @@
 
                                     <span class="display-6 d-block">{{ v.skpd_nama }}</span>
                                     <span class="display-6 d-block">{{ v.skpd_tipe }}</span>
-                                    <span class="display-6 d-block" v-if="v.data_ping.data.latency">{{ v.data_ping.data.latency }}</span>
-                                    <span class="display-6 d-block" v-else>~ ms</span>
+                                    <span class="display-6 d-block" v-if="v.data_ping">{{ v.data_ping.data.latency }}</span>
                                 </b-card>
                             </div>
                         </div>
@@ -107,8 +106,10 @@ export default {
                     if (data.hasOwnProperty("skpd_ip")) {
                         var parameters = {url: data.skpd_ip};
                         this.axios.post('/api/dashboard/ping', parameters).then(res => {
-                            data.data_ping = res.data.data.data_ping;
-                            data.skpd_status = res.data.data.skpd_status;
+                           if(res.data.message != 'tutup'){
+                               data.data_ping = res.data.data.data_ping;
+                               data.skpd_status = res.data.data.skpd_status;
+                           }
                         }).catch((err) => {
                             data.skpd_status = 0;
                         });
