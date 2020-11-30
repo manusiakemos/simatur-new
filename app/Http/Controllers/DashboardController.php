@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Skpd;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -10,12 +11,29 @@ class DashboardController extends Controller
 {
     public function ping(Request $request)
     {
+        $buka = now()->setHour('8')->setMinute(0)->setSecond(0);
+        $tutup = now()->setHour('13')->setMinute(0)->setSecond(0);
+        $now = now();
+        if($now->dayOfWeek == 5){
+            //jika jumat
+            $tutup = now()->setHour('12')->setMinute(0)->setSecond(0);
+        }
+        if(!($now->dayOfWeek >= 1 && $now->dayOfWeek <= 5)){
+            //cek hari libur
+            return responseJson('tutup');
+        }
+        if(!now()->between($buka, $tutup)){
+           return responseJson('tutup');
+        }
+
         $ip = $request->input('url');
-        $details = collect(checkIp($ip));
         $db = Skpd::where("skpd_ip", $ip)->firstOrFail();
-        $db->skpd_status = isset($details['status']) ? $details['status'] : 0;
+        $details = json_decode(checkIp($ip));
+        $db->skpd_status = isset($details->success) ? $details->success : 0;
+        $db->data_ping = json_encode($details);
         $db->save();
-        $db->data_ping = $details;
+
+        $db->data_ping = json_decode($db->data_ping);
         return responseJson("data ping", $db);
     }
 

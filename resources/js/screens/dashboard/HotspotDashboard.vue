@@ -16,8 +16,8 @@
                 <b-tabs content-class="mt-3">
                     <b-tab title="Ping Monitoring" active lazy>
                         <div class="row">
-                            <div class="col-lg-3 mb-3" v-for="(v,i) in hotspot.data" :key="i">
-                                <b-card no-title class="shadow-sm">
+                            <div class="col-lg-3 mb-3 d-flex" v-for="(v,i) in hotspot.data" :key="i">
+                                <b-card no-title class="shadow-sm" style="flex:1">
                                     <div class="d-flex justify-content-between">
                                         <h6 class="display-6 text-primary">{{ v.skpd_ip }}</h6>
                                         <b-badge :variant="v.skpd_status ?'success' : 'danger'"
@@ -26,9 +26,10 @@
                                         </b-badge>
                                     </div>
 
-                                    <p class="display-6">{{ v.skpd_nama }} ({{ v.skpd_tipe }})</p>
-                                    <p class="display-6" v-if="v.data_ping">{{ v.data_ping.latency }}</p>
-                                    <p class="display-6" v-else>~ ms</p>
+                                    <span class="display-6 d-block">{{ v.skpd_nama }}</span>
+                                    <span class="display-6 d-block">{{ v.skpd_tipe }}</span>
+                                    <span class="display-6 d-block" v-if="v.data_ping.data.latency">{{ v.data_ping.data.latency }}</span>
+                                    <span class="display-6 d-block" v-else>~ ms</span>
                                 </b-card>
                             </div>
                         </div>
@@ -95,8 +96,8 @@ export default {
             myInterval = setInterval(() => {
                 setTimeout(() => {
                     this.pingData();
-                }, 60000)
-            }, 60000)
+                }, 10000)
+            }, 10000)
         },
         pingData() {
             var vm = this;

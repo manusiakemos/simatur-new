@@ -296,13 +296,14 @@ function checkIpBackup($ip, $port = 80){
     }
 }
 
-function checkIp($ip, $port){
+function checkIp($ip, $port = 80){
     $url = $ip . ':' . $port;
-    $response = Http::post("http://114.7.165.66:15080/cekip.php", [
+    $response = Http::asForm()->post("http://114.7.165.66:15080/cekip.php", [
         'tujuan' => $url,
     ]);
     return $response;
 }
+
 
 function ping($host, $port = 80, $timeout = 60) {
     $tB = microtime(true);
