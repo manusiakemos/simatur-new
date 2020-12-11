@@ -41,10 +41,12 @@ class RegisterNotif extends Notification
      */
     public function toMail($notifiable)
     {
+
         $token = encrypt($notifiable->api_token);
         return (new MailMessage)
-            ->line('konfirmasi Email Kamu')
-            ->action('Konfirmasi Sekarng', route('konfirmasi', $token))
+            ->subject('Email Konfirmasi')
+            ->line('Konfirmasi Email Kamu')
+            ->action('Konfirmasi Sekarang', route('konfirmasi', $token))
             ->line('Terimakasih');
     }
 

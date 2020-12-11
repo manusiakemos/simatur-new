@@ -16,7 +16,7 @@
                <b-navbar-nav class="p-4">
                    <b-nav-item :to="{name:'WebHome'}">Beranda</b-nav-item>
                    <b-nav-item :to="{name:'WebHotspot'}">Hotspot</b-nav-item>
-                   <b-nav-item v-if="auth.status" :to="{name:'WebListPermohonan'}">Permohanan Rekomendasi</b-nav-item>
+<!--                   <b-nav-item v-if="auth.status" :to="{name:'WebListPermohonan'}">Permohanan Rekomendasi</b-nav-item>-->
                    <b-nav-item :to="{name:'WebArsip'}">Arsip</b-nav-item>
                    <b-nav-item :to="{name:'TowerMap'}">Peta Tower</b-nav-item>
                    <b-nav-item :to="{name:'DataTower'}">Tabel Data Tower</b-nav-item>
@@ -25,7 +25,7 @@
                </b-navbar-nav>
                <b-navbar-nav class="ml-auto p-4" v-if="auth.status == false">
                    <b-nav-item :to="{name:'Login'}">Login</b-nav-item>
-                   <b-nav-item :to="{name:'Register'}">Daftar</b-nav-item>
+<!--                   <b-nav-item :to="{name:'Register'}">Daftar</b-nav-item>-->
                </b-navbar-nav>
                <b-navbar-nav class="ml-auto p-4" v-else>
                   <div>

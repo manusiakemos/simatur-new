@@ -123,7 +123,9 @@ class AuthController extends Controller
             'device_name' => 'required'
         ]);
 
-        $user = User::where('username', $request->username)->first();
+        $user = User::where('username', $request->username)
+//            ->whereNotNull("email_verified_at")
+            ->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([

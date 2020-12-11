@@ -40,7 +40,7 @@
                             v-model="data.password"
                         ></b-input>
                     </b-form-group>
-                    <p>Belum punya akun? <router-link :to="{name:'Register'}">Daftar Sekarang</router-link></p>
+<!--                    <p>Belum punya akun? <router-link :to="{name:'Register'}">Daftar Sekarang</router-link></p>-->
                     <b-button variant="primary" class="shadow btn-block mt-3" type="submit">LOGIN</b-button>
                 </form>
             </div>

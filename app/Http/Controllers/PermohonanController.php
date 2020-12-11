@@ -17,9 +17,10 @@ class PermohonanController extends Controller
 {
     public function download($id)
     {
-        $data=Permohonan::find($id);
-        return response()->download(public_path('/uploads/archive/'.$data->p_file));
+        $data = Permohonan::find($id);
+        return response()->download(public_path('/uploads/archive/' . $data->p_file));
     }
+
     /**
      * @return mixed
      * @throws \Exception
@@ -102,7 +103,7 @@ class PermohonanController extends Controller
      */
     private function handleRequest($db, Request $request)
     {
-        $rules  = collect([
+        $rules = collect([
             "p_keterangan" => [
                 "required"
             ],
@@ -119,7 +120,7 @@ class PermohonanController extends Controller
                 "required"
             ],
         ]);
-        if(auth()->user()->role != 'user'){
+        if (auth()->user()->role != 'user') {
             $rulesnya = [
                 "p_status" => [
                     "required"
@@ -134,26 +135,27 @@ class PermohonanController extends Controller
             $rules = $rules->merge($rulesnya);
         }
 
-        if(!isset($db->p_id)){
-            $rules = $rules->merge(["p_file" => "required"]);
+        if (!isset($db->p_id)) {
+            $rules = $rules->merge(["file" => "required|mimes:zip"]);
         }
+
         $this->validate($request, $rules->all());
 
-        if(!isset($db->p_id)){
+        if (!isset($db->p_id)) {
             //store
-            $db->user_id = auth()->user()->id;
-            if(auth()->user()->role == 'user'){
+            $db->user_id = auth()->id();
+            if (auth()->user()->role == 'user') {
 //                type ditinjau, revisi, ditolak, disetujui
                 $db->p_status = "ditinjau";
             }
-        }else{
+        } else {
             $db->p_status = $request->p_status;
         }
 
-        if(auth()->user()->role == 'user'){
-            if($request->hasFile('file')){
+        if (auth()->user()->role == 'user') {
+            if ($request->hasFile('file')) {
 
-                $filename = Str::slug(auth()->user()->name. $request->kelurahan_id).'.'.$request->file('file')->getClientOriginalExtension();
+                $filename = Str::slug(auth()->user()->name . $request->kelurahan_id) . '.' . $request->file('file')->getClientOriginalExtension();
                 $request->file('file')->move(public_path('/uploads/archive/'), $filename);
                 $db->p_file = $filename;
             }

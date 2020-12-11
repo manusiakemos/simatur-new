@@ -16,5 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
    return view('layouts.app');
 });
+
+Route::get('/privacy', function (){
+    return view('privacy');
+});
+
 Route::post('/login', 'Auth\LoginController@login');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');

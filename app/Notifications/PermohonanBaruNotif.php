@@ -40,6 +40,7 @@ class PermohonanBaruNotif extends Notification
      */
     public function toMail($notifiable)
     {
+        
         switch ($this->db->p_status) {
             case 'ditinjau':
                 $message = 'Ada Permohonan Rekomenasi Menara Baru';
@@ -52,9 +53,10 @@ class PermohonanBaruNotif extends Notification
                 break;
         }
         return (new MailMessage)
+            ->subject('Pemberitahuan Permohonan Simatur')
             ->line($message)
             ->line($this->db->p_alasan_ditolak)
-            ->action('Ashiap', url('/'));
+            ->action('Menuju Simatur', url('/'));
     }
 
     /**

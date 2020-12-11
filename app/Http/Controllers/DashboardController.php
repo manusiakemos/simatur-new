@@ -51,7 +51,7 @@ class DashboardController extends Controller
         }
         $data = $data->orderBy("skpd_tipe")->get();
         foreach ($data as $value) {
-            $value->data_ping = null;
+            $value->data_ping = json_decode($value->data_ping);
         }
         return responseJson("data skpd", $data);
     }

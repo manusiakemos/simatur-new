@@ -183,7 +183,7 @@ const routes = [
                     name: 'WebHotspot',
                     component: () => import("./screens/web/Hotspot")
                 },
-                {
+               /* {
                     path: '/weblistpermohanan',
                     name: 'WebListPermohonan',
                     component: () => import("./screens/web/ListPermohonan.vue"),
@@ -191,7 +191,7 @@ const routes = [
                         requiresAuth: true,
                         role: 'user'
                     }
-                },
+                },*/
                 {
                     path: '/webarsip',
                     name: 'WebArsip',
@@ -259,11 +259,11 @@ const routes = [
                     name: 'Login',
                     component: () => import( "./screens/pages/Login"),
                 },
-                {
+               /* {
                     path: '/pages/register',
                     name: 'Register',
                     component: () => import("./screens/pages/Register"),
-                }
+                }*/
             ]
         }
     ]

@@ -313,4 +313,11 @@ function ping($host, $port = 80, $timeout = 60) {
     return round((($tA - $tB) * 1000), 0)." ms";
 }
 
+function getGoogleMap($lat, $lng)
+{
+//        https://www.google.com/maps/search/?api=1&query=58.698017,-152.522067
+    $url = "https://www.google.com/maps/search/?api=1&query=";
+    return "$url"."$lat,$lng";
+}
+
 

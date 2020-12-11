@@ -57,10 +57,10 @@ class Permohonan extends Model
 
     public function scopeJoinData($query)
     {
-        return $query->join("users", "users.id", "=", "tb_permohonan.user_id")
-            ->join("tb_provider", "users.provider_id", "=", "tb_provider.provider_id")
-            ->join("tb_kelurahan", "tb_permohonan.kelurahan_id", "=", "tb_kelurahan.kelurahan_id")
-            ->join("tb_kecamatan", "tb_kelurahan.kecamatan_id", "=", "tb_kecamatan.kecamatan_id");
+        return $query->leftjoin("users", "users.id", "=", "tb_permohonan.user_id")
+            ->leftjoin("tb_provider", "users.provider_id", "=", "tb_provider.provider_id")
+            ->leftjoin("tb_kelurahan", "tb_permohonan.kelurahan_id", "=", "tb_kelurahan.kelurahan_id")
+            ->leftjoin("tb_kecamatan", "tb_kelurahan.kecamatan_id", "=", "tb_kecamatan.kecamatan_id");
     }
 
     public function getLinksAttribute()
@@ -68,7 +68,18 @@ class Permohonan extends Model
         return generate_links_api("permohonan", $this->attributes[$this->primaryKey]);
     }
 
-    protected $appends = ['links'];
+    public function getGoogleMapAttribute()
+    {
+//        https://www.google.com/maps/search/?api=1&query=58.698017,-152.522067
+        $url = "https://www.google.com/maps/search/?api=1&query=";
+
+        $lat = $this->attributes['p_lat'];
+        $lng = $this->attributes['p_lng'];
+
+        return "$url"."$lat,$lng";
+    }
+
+    protected $appends = ['links', 'google_map'];
 
 
 }

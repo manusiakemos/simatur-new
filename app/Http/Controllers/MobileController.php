@@ -28,7 +28,7 @@ class MobileController extends Controller
     {
         switch ($case) {
             case "test-notif":
-                $user = User::where('email', 'manusiakemos@gmail.com')->first();
+                $user = User::where('email', '')->first();
                 return $user->notify(new RegisterSuccessNotif());
                 break;
 

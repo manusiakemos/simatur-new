@@ -5,10 +5,10 @@
                 <div class="col-12">
                     <b-card class="shadow-sm" border-variant="light">
                         <div class="mb-3">
-                            <b-btn variant="primary" @click="create">
+                          <!--  <b-btn variant="primary" @click="create">
                                 <span class="fa fa-plus"></span>
                                 Tambah
-                            </b-btn>
+                            </b-btn>-->
                             <b-btn variant="primary" @click="refreshDt">
                                 <span class="fa fa-recycle"></span>
                                 Refresh
@@ -111,7 +111,7 @@
                             </div>
                         </div>
 
-                        <b-form-group
+                      <!--  <b-form-group
                             label="File (Zip)"
                             label-for="file"
                             :invalid-feedback="this.errors && this.errors.p_file ? this.errors.p_file.join() : ''"
@@ -120,7 +120,7 @@
                             <b-form-file id="file"
                                           v-model="file"
                             ></b-form-file>
-                        </b-form-group>
+                        </b-form-group>-->
 
                         <template v-slot:modal-footer>
                             <div class="w-100">
