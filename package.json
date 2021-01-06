@@ -12,7 +12,7 @@
     "devDependencies": {
         "@babel/compat-data": "^7.9.0",
         "@fortawesome/fontawesome-free": "^5.12.1",
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "bootstrap": "^4.0.0",
         "browser-sync": "^2.26.7",
         "browser-sync-webpack-plugin": "^2.0.1",
