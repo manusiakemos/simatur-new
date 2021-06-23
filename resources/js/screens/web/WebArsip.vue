@@ -1,15 +1,16 @@
 <template>
     <div class="container py-5" v-if="data">
-        <div v-for="x in data" class="row">
-            <div class="col-lg-4" v-for="y in x">
-                <b-card class="mb-3" :title="y.arsip_name">
-                    <a :href="y.arsip_file_path" target="_blank" class="btn btn-outline-primary">
+        <div v-for="x in data" class="row justify-content-center" style="flex:1">
+            <div class="col-md-4 d-flex" v-for="y in x">
+                <b-card class="mb-3" :title="y.arsip_name" style="flex-grow: 1">
+                    <a :href="y.arsip_file_path" target="_blank" class="btn btn-outline-dark">
                         <span class="fa fa-file-pdf text-danger"></span> Download File
                     </a>
                 </b-card>
             </div>
         </div>
     </div>
+
 </template>
 
 <script>

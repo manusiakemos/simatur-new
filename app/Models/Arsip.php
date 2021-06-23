@@ -50,6 +50,11 @@ class Arsip extends Model
 //        return route('file.download', $x);
     }
 
+    public function getArsipNameAttribute()
+    {
+        return strtoupper($this->attributes['arsip_name']);
+    }
+
 
     public function getLinksAttribute()
     {
